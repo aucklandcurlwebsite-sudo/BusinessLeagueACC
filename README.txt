@@ -9,6 +9,10 @@ GET STARTED
 FILES
 index.html - Complete website, Admin dashboard, CSS and JavaScript.
 PROJECT-NOTES.md - Features, workflow and known limitations.
+SLIDE-CONTENT-NOTES.md - Content imported from slides 4-7 of the supplied deck.
+assets/auckland-curlers.jpg - Curling team photograph from slide 6.
+
+Keep the assets folder beside index.html so the imported photograph loads.
 
 No installation or local server is required.
 The sample gallery photos load from the internet.

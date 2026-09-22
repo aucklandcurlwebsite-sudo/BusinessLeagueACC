@@ -715,6 +715,63 @@ th,td{
 .interactive-link[data-hover-effect^="custom"]::after{content:none;transform:none;transition:none;background:none;height:auto;width:auto}
 .interactive-link[data-hover-effect^="custom"] .arrow{display:none}
 </style>
+<style>
+.curling-information{grid-column:1/-1;color:var(--venice);background:var(--merino)}
+.curling-band{padding:64px 5vw;border-bottom:1px solid rgba(22,88,123,.18)}
+.curling-band:nth-child(even){background:#fff}
+.curling-band h2{font-size:32px;line-height:1.15;letter-spacing:0;margin:0 0 24px;overflow-wrap:anywhere}
+.curling-band ul{margin:0;padding-left:24px;max-width:950px}
+.curling-band li{margin:0 0 14px;line-height:1.7}
+.curling-community{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.curling-community img{width:100%;height:auto;display:block;border-radius:6px}
+.curling-community figure{margin:0}.curling-community figcaption{font-size:13px;margin-top:10px}
+@media(max-width:900px){.curling-community{grid-template-columns:1fr}.curling-band{padding:40px 5vw}.curling-band h2{font-size:27px}}
+</style>
+<style>
+.curling-information{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;padding:64px 5vw}
+.curling-card{height:460px;min-width:0;perspective:1200px}
+.curling-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s ease}
+.curling-card.is-flipped .curling-card-inner{transform:rotateY(180deg)}
+.curling-front,.curling-back{position:absolute;inset:0;backface-visibility:hidden;border:1px solid #c7d5ce;border-radius:8px;overflow:hidden}
+.curling-front{background:var(--rock)}
+.curling-front>img{width:100%;height:100%;object-fit:cover;display:block}
+.curling-front-button{position:absolute;inset:0;display:flex;align-items:flex-start;padding:22px;width:100%;height:100%;border:0;background:transparent;color:#243f35;text-align:left}
+.curling-card-title{display:block;background:white;padding:22px;max-width:78%;border-radius:6px}
+.curling-card-title h2{font-size:28px;line-height:1.12;letter-spacing:0;margin:0 0 22px;overflow-wrap:anywhere}
+.curling-card-action{display:inline-block;font-size:13px;border-bottom:1px solid currentColor;padding-bottom:4px}
+.curling-back{transform:rotateY(180deg);background:#fff;color:var(--venice);display:flex;flex-direction:column;padding:26px}
+.curling-back h3{font-size:22px;letter-spacing:0;line-height:1.2;margin:0 0 16px;overflow-wrap:anywhere}
+.curling-back ul{flex:1;min-height:0;overflow:auto;padding-left:20px;margin:0 0 16px}
+.curling-back li{font-size:15px;line-height:1.55;margin-bottom:10px}
+.curling-back button{align-self:flex-start}
+.curling-front-button:focus-visible{outline:3px solid #168276;outline-offset:-6px}
+@media(max-width:900px){.curling-information{grid-template-columns:minmax(0,1fr);padding:40px 5vw}.curling-card{height:470px}.curling-card-title{max-width:90%}.curling-card-title h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.curling-card-inner{transition:none}}
+</style>
+<style>
+.curling-information{background:#f4c5c4;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;padding:64px 4vw}
+.curling-card{height:500px}
+.curling-front,.curling-back{border:0;border-radius:7px;background:#fbfaf6;box-shadow:0 2px 0 rgba(55,66,54,.06)}
+.curling-front{overflow:visible}
+.curling-card.is-flipped .curling-front{visibility:hidden;pointer-events:none}
+.curling-card.is-flipped .curling-card-photo{visibility:hidden}
+.curling-front::before{content:"";position:absolute;inset:36px 15px 20px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 25px,#b5cfc7 25px,#b5cfc7 26px);pointer-events:none}
+.curling-front::after{content:"";position:absolute;top:12px;left:10px;width:11px;height:11px;border-radius:50%;background:#f4c5c4;box-shadow:15px 0 #f4c5c4,30px 0 #f4c5c4}
+.curling-card-photo{position:absolute;z-index:1;top:12px;left:18px;right:5px;height:254px;transform:rotate(7deg);background:#da9c49;border:6px solid #da9c49;box-shadow:0 5px 10px rgba(32,45,39,.14);overflow:hidden}
+.curling-card:nth-child(2) .curling-card-photo{transform:rotate(-5deg);border-color:#d1bc30;background:#d1bc30}
+.curling-card:nth-child(3) .curling-card-photo{transform:rotate(5deg);border-color:#139cb0;background:#139cb0}
+.curling-card:nth-child(4) .curling-card-photo{transform:rotate(-4deg);border-color:#7da883;background:#7da883}
+.curling-card-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.curling-front-button{align-items:flex-start;justify-content:flex-end;flex-direction:column;z-index:2;padding:0 18px 24px;overflow:visible}
+.curling-front-button::before{content:"";position:absolute;left:42px;top:-13px;width:13px;height:48px;border:3px solid #263b35;border-radius:10px;transform:rotate(16deg);box-shadow:inset 0 0 0 2px #fbfaf6}
+.curling-card-title{background:transparent;padding:0;max-width:100%;width:100%;height:190px;display:flex;flex-direction:column;justify-content:flex-start;border-radius:0}
+.curling-card-title h2{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:26px;line-height:1.06;letter-spacing:0;color:#183a36;margin:8px 0 12px;overflow-wrap:anywhere;max-height:145px;overflow:auto}
+.curling-card-action{align-self:flex-start;margin-top:auto;font-size:12px;color:#324b45;background:#eef0e8;border:1px solid #c3cfc7;padding:5px 10px;border-radius:3px;transform:rotate(-5deg)}
+.curling-back{background:repeating-linear-gradient(to bottom,#fbfaf6 0,#fbfaf6 27px,#d6e2dc 27px,#d6e2dc 28px);padding:24px}
+.curling-back h3{font-family:Impact,"Arial Narrow",Arial,sans-serif;text-transform:uppercase;color:#183a36}
+@media(max-width:1200px){.curling-information{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}.curling-card-photo{left:24px;right:20px}}
+@media(max-width:600px){.curling-information{grid-template-columns:minmax(0,1fr);padding:48px 7vw;gap:38px}.curling-card{height:500px}.curling-card-title{max-width:100%}.curling-card-title h2{font-size:28px}}
+</style>
 </head>
 
 <body>
@@ -2532,6 +2589,7 @@ updateInteraction();
    element.addEventListener('drop',e=>{e.preventDefault();element.classList.remove('drag-over');place(e.dataTransfer.getData('text/plain'),target);});
  }
  $('placeSelected').onclick=()=>place(selectedPhoto,$('placeTarget').value);
+ window.placeWebsiteImage=place;
  $('placeTarget').onchange=sync;
  for(const id of ['cropX','cropY','cropZoom'])$(id).oninput=()=>{
    const item=current();if(!item)return;const before=structuredClone(data);
@@ -2622,6 +2680,11 @@ updateInteraction();
      });
    }
    doc.getElementById('photoFan').addEventListener('click',openGallery);
+   doc.querySelectorAll('.curling-card').forEach(card=>{
+     card.querySelectorAll('[data-flip-card]').forEach(button=>button.addEventListener('click',()=>window.flipCurlingCard(card)));
+     card.addEventListener('dragover',event=>{event.preventDefault();event.dataTransfer.dropEffect='copy';});
+     card.addEventListener('drop',event=>{event.preventDefault();window.placeWebsiteImage(event.dataTransfer.getData('text/plain'),card.id);});
+   });
    doc.getElementById('photoFan').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openGallery();}});
    doc.getElementById('openAdmin').addEventListener('click',()=>document.getElementById('imagePlacement').scrollIntoView({block:'center'}));
    fit();frame.contentWindow.scrollTo(0,scroll);
@@ -2959,6 +3022,171 @@ updateInteraction();
    password.value='';error.textContent='';
    if(document.getElementById('admin').hidden){document.body.style.overflow='';document.getElementById('openAdmin').focus();}
  });
+})();
+</script>
+<script>
+(() => {
+ const imported=[
+   {id:'curlingBenefits',title:'Benefits of curling',lines:[
+     'Health and fitness: a low-impact sport that develops balance, strength and endurance.',
+     'Mental agility: strategy, teamwork and concentration are part of every game.',
+     'Social connection: make friends and enjoy being part of a team.',
+     'All ages: suitable for children, adults and seniors.',
+     'Adaptive participation: the game can be modified for people with disabilities.',
+     'Inclusive competition: a gender-inclusive alternative to traditional New Zealand sports.'
+   ]},
+   {id:'curlingWelcome',title:'Why try curling?',lines:[
+     'An indoor, all-weather sport with daytime, evening and weekend opportunities.',
+     'Join as an individual and meet a diverse community of players.',
+     'Learn the skills and enjoy the game as your confidence grows.',
+     'The spirit of curling supports a safe, welcoming social environment for all curlers.',
+     'Auckland Curling Club has built a community over two decades, with dedicated curlers keen to share their love of the game.'
+   ]},
+   {id:'curlingCommunity',title:'Who curls in Auckland? Everyone!',lines:[
+     'The club participation snapshot spans ages 12 to 79.',
+     'Curling attracts rangatahi and people from immigrant communities.',
+     'Players come from Scotland, Canada, the USA, Ukraine, Russia, China, Brazil and India.',
+     'More than 50% of players are women.',
+     'Senior curlers include New Zealand representatives at the senior world championships.'
+   ]},
+   {id:'curlingParticipation',title:'Schools and club competition',lines:[
+     'Secondary schools: 20 teams, from Pukekohe High School to Long Bay College.',
+     'Girls make up 60% of the school participation shown in the club snapshot.',
+     'Club league: 20 teams.',
+     'The club community includes New Zealand mixed winners, New Zealand women\'s winners, and men\'s and women\'s senior world championship representatives.'
+   ]}
+ ];
+ const host=document.createElement('div');host.className='curling-information';
+ window.flipCurlingCard=card=>{
+   const flipped=card.classList.toggle('is-flipped');
+   const front=card.querySelector('.curling-front'),back=card.querySelector('.curling-back');
+   front.inert=flipped;back.inert=!flipped;
+   front.setAttribute('aria-hidden',String(flipped));back.setAttribute('aria-hidden',String(!flipped));
+   (flipped?back:front).querySelector('button').focus({preventScroll:true});
+ };
+ for(const item of imported){
+   const option=document.createElement('option');option.value=item.id;option.textContent='Card: '+item.title;
+   document.getElementById('placeTarget').append(option);
+ }
+ document.getElementById('about').append(host);
+ const panel=document.createElement('section');panel.className='editor-section';
+ const heading=document.createElement('h3');heading.textContent='Curling information';panel.append(heading);
+ document.getElementById('editAboutText').closest('.editor-section').after(panel);
+ const status=document.createElement('p');status.setAttribute('role','status');
+ function content(){return imported.map(item=>({...item,...data.curlingInformation?.[item.id]}));}
+ for(const item of imported){
+   const sub=document.createElement('h4');sub.textContent=item.title;panel.append(sub);
+   for(const [key,title] of [['title','Heading'],['lines','Details (one item per line)']]){
+     const label=document.createElement('label');label.className='field';
+     const name=document.createElement('span');name.textContent=title;
+     const input=document.createElement(key==='lines'?'textarea':'input');input.id=item.id+'-'+key;
+     if(key==='lines'){input.rows=7;input.style.minHeight='180px';}
+     input.addEventListener('input',()=>{
+       const current=content().find(row=>row.id===item.id);
+       data.curlingInformation ||= {};
+       data.curlingInformation[item.id]={...current,[key]:key==='lines'?input.value.split('\n').filter(line=>line.trim()):input.value};
+       render();autoSave();status.textContent='Curling information updated.';
+     });
+     label.append(name,input);panel.append(label);
+   }
+ }
+ const save=document.createElement('button');save.className='editor-btn';save.textContent='Save Changes';
+ save.onclick=()=>{status.textContent=persistPhotos()?'Curling information saved.':'Could not save. Browser storage is full or unavailable.';};
+ panel.append(save,status);
+ function populate(){for(const item of content()){document.getElementById(item.id+'-title').value=item.title;document.getElementById(item.id+'-lines').value=item.lines.join('\n');}}
+ function paint(){
+   host.replaceChildren();
+   for(const item of content()){
+     const section=document.createElement('article');section.id=item.id;section.className='curling-card';
+     const inner=document.createElement('div');inner.className='curling-card-inner';
+     const front=document.createElement('div');front.className='curling-front';
+     const image=document.createElement('img');
+     const placement=data.placements?.[item.id];
+     const photo=(data.photoLibrary||[]).find(p=>p.id===placement?.id);
+     image.src=photo?.src||'assets/auckland-curlers.jpg';image.alt=photo?.name||'Curlers together on the ice';
+     image.style.objectPosition=(placement?.x??50)+'% '+(placement?.y??50)+'%';
+     image.style.transform='scale('+((placement?.zoom??100)/100)+')';
+     image.style.transformOrigin=image.style.objectPosition;
+     const face=document.createElement('button');face.type='button';face.dataset.flipCard='true';face.className='curling-front-button';face.setAttribute('aria-label','Read '+item.title);
+     const title=document.createElement('h2');title.textContent=item.title;
+     const action=document.createElement('span');action.className='curling-card-action';action.textContent='Learn more';
+     const titleBlock=document.createElement('span');titleBlock.className='curling-card-title';titleBlock.append(title,action);
+     const photoFrame=document.createElement('div');photoFrame.className='curling-card-photo';photoFrame.append(image);
+     face.append(titleBlock);front.append(photoFrame,face);
+     const back=document.createElement('div');back.className='curling-back';back.inert=true;back.setAttribute('aria-hidden','true');
+     const backTitle=document.createElement('h3');backTitle.textContent=item.title;
+     const list=document.createElement('ul');list.tabIndex=0;list.setAttribute('aria-label',item.title+' details');
+     for(const text of item.lines){const li=document.createElement('li');li.textContent=text;list.append(li);}
+     const close=document.createElement('button');close.type='button';close.dataset.flipCard='true';close.className='editor-btn';close.textContent='Back to photo';
+     back.append(backTitle,list,close);inner.append(front,back);section.append(inner);
+     for(const button of [face,close])button.addEventListener('click',()=>window.flipCurlingCard(section));
+     host.append(section);
+   }
+ }
+ const prior=render;render=function(){paint();prior();};
+ document.getElementById('resetWebsite').addEventListener('click',populate);
+ populate();render();
+})();
+</script>
+<style>
+.preview-side{display:flex;flex-direction:column}
+.preview-window{flex:1;min-height:0;height:auto}
+.preview-background-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.preview-background-tools select{flex:1;min-width:130px;width:100%;padding:8px;border:1px solid #a5b3ba;border-radius:4px;font:inherit;font-size:13px}
+.preview-background-tools input[type=color]{width:42px;height:36px;padding:2px;border:1px solid #a5b3ba;background:white;border-radius:4px}
+.preview-background-tools button{padding:8px;font-size:12px}
+#backgroundStatus{font-size:12px;flex-basis:100%;margin:0;color:#243f4b}
+</style>
+<script>
+(() => {
+ const zones=[
+   ['header','Header','#website .site-nav','venice'],
+   ['hero','Hero','#hero','venice'],
+   ['announcements','Announcements','#introText','rock'],
+   ['about','About text','#about .about-copy','venice'],
+   ['round','Round Robin','#round','rock'],
+   ['photos','Photo gallery','#photos','merino'],
+   ['news','News','#news','venice'],
+   ['cards','Card section','.curling-information','#f4c5c4'],
+   ['cardFront','Card fronts','.curling-front','#fbfaf6'],
+   ['cardBack','Card backs','.curling-back','#fbfaf6']
+ ];
+ const tools=document.createElement('div');tools.className='preview-background-tools';
+ tools.innerHTML='<select id="backgroundZone" aria-label="Background zone"></select><input type="color" id="backgroundColour" aria-label="Background colour"><button type="button" class="editor-btn" id="saveBackground">Save Changes</button><button type="button" class="editor-btn" id="resetBackground">Default</button><p id="backgroundStatus" role="status"></p>';
+ document.querySelector('.preview-label').after(tools);
+ const select=document.getElementById('backgroundZone'),colour=document.getElementById('backgroundColour'),status=document.getElementById('backgroundStatus');
+ for(const [id,name] of zones){const option=document.createElement('option');option.value=id;option.textContent=name;select.append(option);}
+ const style=document.createElement('style');style.id='websiteBackgroundColours';document.head.append(style);
+ function paint(){
+   style.textContent=zones.map(([id,name,selector])=>{
+     const value=data.zoneBackgrounds?.[id];if(!/^#[0-9a-f]{6}$/i.test(value||''))return '';
+     let rule=selector+'{background-color:'+value+'!important;}';
+     if(id==='hero'&&!data.placements?.hero)rule+='#hero{background-image:none!important;}';
+     if(id==='cardBack')rule+='.curling-back{background-image:repeating-linear-gradient(to bottom,'+value+' 0,'+value+' 27px,#d6e2dc 27px,#d6e2dc 28px)!important;}';
+     return rule;
+   }).join('\n');
+   const doc=document.getElementById('accuratePreview')?.contentDocument;
+   if(doc){let copy=doc.getElementById(style.id);if(!copy){copy=doc.createElement('style');copy.id=style.id;doc.head.append(copy);}copy.textContent=style.textContent;}
+ }
+ function sync(){
+   const zone=zones.find(z=>z[0]===select.value)||zones[0];
+   const fallback=zone[3].startsWith('#')?zone[3]:data.colours[zone[3]];
+   colour.value=data.zoneBackgrounds?.[zone[0]]||fallback;
+ }
+ select.onchange=()=>{
+   sync();const zone=zones.find(z=>z[0]===select.value);
+   document.getElementById('accuratePreview')?.contentDocument?.querySelector(zone[2])?.scrollIntoView({block:'start'});
+   status.textContent='';
+ };
+ colour.oninput=()=>{
+   data.zoneBackgrounds||={};data.zoneBackgrounds[select.value]=colour.value;
+   paint();autoSave();status.textContent='Background updated.';
+ };
+ document.getElementById('saveBackground').onclick=()=>{status.textContent=persistPhotos()?'Background colours saved.':'Could not save. Browser storage is full or unavailable.';};
+ document.getElementById('resetBackground').onclick=()=>{if(data.zoneBackgrounds)delete data.zoneBackgrounds[select.value];paint();sync();autoSave();status.textContent='Default background restored.';};
+ const previous=render;render=function(){previous();paint();sync();};
+ document.getElementById('resetWebsite').addEventListener('click',()=>{paint();sync();});
+ paint();sync();
 })();
 </script>
 </body>
