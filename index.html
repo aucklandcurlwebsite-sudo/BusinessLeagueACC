@@ -1,0 +1,2965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Club Website — Live Editor</title>
+
+<style>
+:root{
+  --merino:#F5EEDD;
+  --rock:#84B3CE;
+  --venice:#16587B;
+  --ink:#102E3D;
+  --white:#ffffff;
+  --admin:#111820;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--merino);
+  color:var(--venice);
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{cursor:pointer}
+
+[hidden]{display:none!important}
+
+/* =========================
+   PUBLIC WEBSITE
+========================= */
+
+#website{
+  min-height:100vh;
+}
+
+.site-nav{
+  position:relative;
+  z-index:10;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:22px 5vw;
+  background:var(--venice);
+  color:var(--merino);
+}
+
+.logo{
+  font-weight:900;
+  font-size:22px;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.nav-links a{
+  color:inherit;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.admin-open{
+  border:1px solid rgba(255,255,255,.55);
+  background:transparent;
+  color:inherit;
+  padding:10px 15px;
+  border-radius:6px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+/* HERO */
+
+.hero{
+  min-height:650px;
+  padding:80px 5vw;
+  display:flex;
+  align-items:flex-end;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(22,88,123,.92),
+      rgba(22,88,123,.45)
+    ),
+    linear-gradient(135deg,#16587B,#84B3CE);
+  color:var(--merino);
+}
+
+.hero-inner{
+  max-width:950px;
+}
+
+.eyebrow{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin:20px 0;
+  max-width:900px;
+  font-size:clamp(55px,9vw,125px);
+  line-height:.82;
+  letter-spacing:-.07em;
+  text-transform:uppercase;
+}
+
+.hero p{
+  max-width:520px;
+  font-size:17px;
+  line-height:1.65;
+}
+
+.primary-btn{
+  display:inline-block;
+  margin-top:22px;
+  border:0;
+  background:var(--merino);
+  color:var(--venice);
+  padding:15px 22px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+/* INTRO */
+
+.intro-strip{
+  padding:34px 5vw;
+  background:var(--rock);
+  text-align:center;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+/* ABOUT */
+
+.about{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:600px;
+}
+
+.about-image{
+  display:flex;
+  align-items:flex-end;
+  padding:40px;
+  background:
+    linear-gradient(rgba(132,179,206,.15),rgba(22,88,123,.15)),
+    var(--rock);
+}
+
+.image-placeholder{
+  font-size:50px;
+  font-weight:900;
+  opacity:.5;
+}
+
+.about-copy{
+  padding:80px 7vw;
+  background:var(--venice);
+  color:var(--merino);
+}
+
+.about-copy h2,
+.section-title{
+  margin:18px 0 25px;
+  font-size:clamp(45px,6vw,82px);
+  line-height:.9;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+}
+
+.about-copy p{
+  max-width:550px;
+  line-height:1.7;
+}
+
+/* ROUND ROBIN */
+
+.round{
+  padding:90px 5vw;
+  background:var(--rock);
+}
+
+.table-wrap{
+  overflow:auto;
+  margin-top:40px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:600px;
+  background:var(--merino);
+}
+
+th{
+  background:var(--venice);
+  color:var(--merino);
+  text-align:left;
+}
+
+th,td{
+  padding:18px;
+  border-bottom:1px solid rgba(22,88,123,.15);
+}
+
+/* =========================
+   PHOTO FAN
+========================= */
+
+.photos{
+  padding:100px 5vw 130px;
+  background:var(--merino);
+  overflow:hidden;
+}
+
+.photo-layout{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:60px;
+  align-items:center;
+}
+
+.photo-copy p{
+  max-width:400px;
+  line-height:1.6;
+}
+
+.fan-area{
+  min-height:480px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.photo-fan{
+  position:relative;
+  width:310px;
+  height:390px;
+  cursor:pointer;
+}
+
+.fan-card{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  border-radius:8px;
+  border:5px solid var(--merino);
+  box-shadow:0 20px 50px rgba(0,0,0,.22);
+  transform-origin:50% 95%;
+  transition:
+    transform .55s cubic-bezier(.2,.8,.2,1),
+    filter .3s ease;
+}
+
+.fan-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.fan-card:nth-child(1){transform:rotate(-4deg)}
+.fan-card:nth-child(2){transform:rotate(-2deg)}
+.fan-card:nth-child(3){transform:rotate(0)}
+.fan-card:nth-child(4){transform:rotate(2deg)}
+.fan-card:nth-child(5){transform:rotate(4deg)}
+
+.photo-fan:hover .fan-card:nth-child(1){
+  transform:translateX(-190px) rotate(-20deg);
+}
+
+.photo-fan:hover .fan-card:nth-child(2){
+  transform:translateX(-100px) translateY(-15px) rotate(-10deg);
+}
+
+.photo-fan:hover .fan-card:nth-child(3){
+  transform:translateY(-25px);
+}
+
+.photo-fan:hover .fan-card:nth-child(4){
+  transform:translateX(100px) translateY(-15px) rotate(10deg);
+}
+
+.photo-fan:hover .fan-card:nth-child(5){
+  transform:translateX(190px) rotate(20deg);
+}
+
+.fan-hint{
+  margin-top:25px;
+  text-align:center;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+/* NEWS */
+
+.news{
+  padding:90px 5vw;
+  background:var(--venice);
+  color:var(--merino);
+}
+
+.posts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:40px;
+}
+
+.post{
+  padding:30px;
+  min-height:260px;
+  background:var(--merino);
+  color:var(--venice);
+  transition:transform .25s ease;
+}
+
+.post:hover{
+  transform:translateY(-8px);
+}
+
+.post h3{
+  font-size:28px;
+}
+
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+.viewer{
+  position:fixed;
+  z-index:500;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  background:rgba(5,15,20,.92);
+}
+
+.viewer-box{
+  position:relative;
+  width:min(100%,950px);
+}
+
+.viewer img{
+  display:block;
+  width:100%;
+  max-height:75vh;
+  object-fit:contain;
+}
+
+.viewer-controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:15px;
+  color:white;
+}
+
+.viewer button{
+  border:1px solid rgba(255,255,255,.4);
+  background:transparent;
+  color:white;
+  padding:12px 18px;
+}
+
+.viewer-close{
+  position:absolute;
+  right:0;
+  top:-55px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+#admin{
+  position:fixed;
+  z-index:1000;
+  inset:0;
+  overflow:auto;
+  background:#e9ecee;
+  color:#15242c;
+}
+
+.admin-top{
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding:15px 22px;
+  background:#111820;
+  color:white;
+}
+
+.admin-title{
+  font-weight:900;
+}
+
+.save-status{
+  font-size:12px;
+  color:#a9c6d5;
+}
+
+.admin-top-actions{
+  display:flex;
+  gap:10px;
+}
+
+.admin-top button{
+  border:1px solid #47545c;
+  background:#202a30;
+  color:white;
+  padding:10px 15px;
+  border-radius:6px;
+}
+
+.editor-layout{
+  display:grid;
+  grid-template-columns:60% 40%;
+  min-height:calc(100vh - 65px);
+}
+
+/* EDITOR */
+
+.editor{
+  padding:25px;
+  overflow:auto;
+}
+
+.editor-heading{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:end;
+  margin-bottom:25px;
+}
+
+.editor-heading h2{
+  margin:0;
+  font-size:30px;
+}
+
+.editor-heading p{
+  margin:6px 0 0;
+  color:#69777e;
+}
+
+.editor-section{
+  margin-bottom:18px;
+  padding:22px;
+  border:1px solid #d4dade;
+  border-radius:12px;
+  background:white;
+}
+
+.editor-section h3{
+  margin:0 0 18px;
+}
+
+.field{
+  display:block;
+  margin-bottom:17px;
+}
+
+.field span{
+  display:block;
+  margin-bottom:7px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid #cbd2d6;
+  border-radius:7px;
+  padding:12px;
+  background:white;
+  color:#18242b;
+}
+
+.field textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.field-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:12px 0;
+  border-top:1px solid #edf0f2;
+}
+
+.editor-btn{
+  border:0;
+  border-radius:7px;
+  background:var(--venice);
+  color:white;
+  padding:12px 16px;
+  font-weight:800;
+}
+
+.danger{
+  background:#8b2e2e;
+}
+
+/* PREVIEW */
+
+.preview-side{
+  position:sticky;
+  top:65px;
+  align-self:start;
+  height:calc(100vh - 65px);
+  padding:18px;
+  background:#cad1d5;
+}
+
+.preview-label{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.preview-window{
+  height:calc(100% - 25px);
+  overflow:auto;
+  border-radius:10px;
+  background:white;
+  box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+.preview-mini-nav{
+  padding:14px 18px;
+  background:var(--venice);
+  color:var(--merino);
+  font-size:11px;
+  font-weight:900;
+}
+
+.preview-hero{
+  min-height:390px;
+  padding:45px 25px;
+  display:flex;
+  align-items:flex-end;
+  background:var(--venice);
+  color:var(--merino);
+}
+
+.preview-hero h2{
+  margin:10px 0;
+  font-size:clamp(40px,5vw,70px);
+  line-height:.85;
+  letter-spacing:-.06em;
+  text-transform:uppercase;
+}
+
+.preview-section{
+  padding:35px 25px;
+  background:var(--rock);
+}
+
+.preview-photo{
+  padding:35px 25px;
+  background:var(--merino);
+}
+
+/* INTERACTIVE LINK */
+
+.interactive-link{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  overflow:hidden;
+  padding-bottom:5px;
+  color:inherit;
+  text-decoration:none;
+  font-weight:900;
+}
+
+.interactive-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  height:2px;
+  background:currentColor;
+  transform:translateX(-105%);
+  transition:.3s ease;
+}
+
+.interactive-link .arrow{
+  opacity:0;
+  transform:translateX(-8px);
+  transition:.3s ease;
+}
+
+.interactive-link:hover::after{
+  transform:translateX(0);
+}
+
+.interactive-link:hover .arrow{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+  .editor-layout{
+    grid-template-columns:1fr;
+  }
+
+  .preview-side{
+    position:relative;
+    top:auto;
+    height:600px;
+  }
+
+  .about,
+  .photo-layout{
+    grid-template-columns:1fr;
+  }
+
+  .posts{
+    grid-template-columns:1fr;
+  }
+
+  .nav-links a{
+    display:none;
+  }
+
+  .photo-fan{
+    transform:scale(.72);
+  }
+
+  .photo-fan:hover .fan-card:nth-child(1){
+    transform:translateX(-100px) rotate(-16deg);
+  }
+
+  .photo-fan:hover .fan-card:nth-child(2){
+    transform:translateX(-50px) rotate(-8deg);
+  }
+
+  .photo-fan:hover .fan-card:nth-child(4){
+    transform:translateX(50px) rotate(8deg);
+  }
+
+  .photo-fan:hover .fan-card:nth-child(5){
+    transform:translateX(100px) rotate(16deg);
+  }
+}
+
+</style>
+<style>
+#photoLibrary{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin:16px 0}
+.library-photo{position:relative;display:grid;gap:8px;border:2px solid #d4dade;border-radius:6px;padding:8px;cursor:pointer;min-width:0}
+.library-photo:has(input:checked){border-color:var(--venice);background:#e8f2f7}
+.library-photo img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px}
+.library-photo span{font-size:12px;overflow-wrap:anywhere}
+.library-photo input{position:absolute;top:12px;left:12px;width:18px;height:18px}
+.preview-photo{overflow:hidden}.preview-fan-area{height:280px;display:flex;align-items:center;justify-content:center}
+#previewPhotoFan{flex-shrink:0;transform:scale(.48)}
+.viewer{z-index:1500}
+#addSelectedPhoto:disabled{opacity:.5;cursor:default}
+#photoStatus{font-size:13px;overflow-wrap:anywhere}
+</style>
+<style>
+.interactive-link[data-hover-effect="underline"] .arrow{display:none}
+.interactive-link[data-hover-effect="arrow"]::after{display:none}
+.interactive-link[data-hover-effect^="custom"]::after{content:none;transform:none;transition:none;background:none;height:auto;width:auto}
+.interactive-link[data-hover-effect^="custom"] .arrow{display:none}
+</style>
+</head>
+
+<body>
+
+<!-- =====================
+     PUBLIC WEBSITE
+===================== -->
+
+<div id="website">
+
+<nav class="site-nav">
+  <div class="logo" data-club-name>YOUR CLUB</div>
+
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#round">Round Robin</a>
+    <a href="#photos">Photos</a>
+    <a href="#news">News</a>
+
+    <button class="admin-open" id="openAdmin">
+      Admin
+    </button>
+  </div>
+</nav>
+
+
+<section class="hero" id="hero">
+
+  <div class="hero-inner">
+
+    <div class="eyebrow" id="heroEyebrow">
+      Welcome to our club
+    </div>
+
+    <h1 id="heroHeading">
+      Where the game meets the community.
+    </h1>
+
+    <p id="heroDescription">
+      Competition, community and great moments.
+      Follow everything happening around the club.
+    </p>
+
+    <a
+      href="#round"
+      class="primary-btn interactive-link"
+      id="heroLink"
+    >
+      <span id="heroButtonText">View Round Robin</span>
+      <span class="arrow">→</span>
+    </a>
+
+  </div>
+
+</section>
+
+
+<div class="intro-strip" id="introText">
+  EVENTS · COMPETITION · COMMUNITY · CLUB NEWS
+</div>
+
+
+<section class="about" id="about">
+
+  <div class="about-image" id="aboutImage">
+
+    <div class="image-placeholder">
+      CLUB<br>PHOTO
+    </div>
+
+  </div>
+
+  <div class="about-copy">
+
+    <div class="eyebrow">
+      About the club
+    </div>
+
+    <h2 id="aboutHeading">
+      More than just a game.
+    </h2>
+
+    <p id="aboutText">
+      Our club brings together competition, community
+      and great experiences throughout the season.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="round" id="round">
+
+  <div class="eyebrow">
+    Competition
+  </div>
+
+  <h2 class="section-title">
+    Current<br>Round Robin
+  </h2>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Player / Team</th>
+          <th>P</th>
+          <th>W</th>
+          <th>L</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Player One</td>
+          <td>4</td>
+          <td>4</td>
+          <td>0</td>
+          <td>12</td>
+        </tr>
+
+        <tr>
+          <td>Player Two</td>
+          <td>4</td>
+          <td>3</td>
+          <td>1</td>
+          <td>9</td>
+        </tr>
+
+        <tr>
+          <td>Player Three</td>
+          <td>4</td>
+          <td>2</td>
+          <td>2</td>
+          <td>6</td>
+        </tr>
+
+        <tr>
+          <td>Player Four</td>
+          <td>4</td>
+          <td>1</td>
+          <td>3</td>
+          <td>3</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<section class="photos" id="photos">
+
+  <div class="photo-layout">
+
+    <div class="photo-copy">
+
+      <div class="eyebrow">
+        From around the club
+      </div>
+
+      <h2 class="section-title" id="galleryHeading">
+        The<br>Moments.
+      </h2>
+
+      <p>
+        Hover over the stack to fan the photos out.
+        Click the stack to open the full gallery.
+      </p>
+
+      <a href="#photos"
+         class="interactive-link">
+
+        View club gallery
+
+        <span class="arrow">
+          →
+        </span>
+
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <div class="fan-area">
+
+        <div
+          class="photo-fan"
+          id="photoFan"
+          tabindex="0"
+          aria-label="Open club photo gallery"
+        ></div>
+
+      </div>
+
+      <div class="fan-hint">
+        Hover to fan · Click to browse
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="news" id="news">
+
+  <div class="eyebrow">
+    Latest from the club
+  </div>
+
+  <h2 class="section-title">
+    What's happening.
+  </h2>
+
+  <div class="posts">
+
+    <article class="post">
+      <div class="eyebrow">
+        Club News
+      </div>
+
+      <h3>
+        Welcome to the new season
+      </h3>
+
+      <p>
+        Find out what's happening at the club.
+      </p>
+    </article>
+
+
+    <article class="post">
+
+      <div class="eyebrow">
+        Competition
+      </div>
+
+      <h3>
+        Round robin underway
+      </h3>
+
+      <p>
+        Check out the latest standings.
+      </p>
+
+    </article>
+
+
+    <article class="post">
+
+      <div class="eyebrow">
+        Community
+      </div>
+
+      <h3>
+        A great day at the club
+      </h3>
+
+      <p>
+        See the latest moments from our members.
+      </p>
+
+    </article>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<!-- =====================
+     PHOTO VIEWER
+===================== -->
+
+<div
+  class="viewer"
+  id="viewer"
+  hidden
+>
+
+  <div class="viewer-box">
+
+    <button
+      class="viewer-close"
+      id="closeViewer"
+    >
+      Close ×
+    </button>
+
+    <img
+      id="viewerImage"
+      alt="Club gallery"
+    >
+
+    <div class="viewer-controls">
+
+      <button id="previousPhoto">
+        ← Previous
+      </button>
+
+      <span id="viewerCount">
+        1 / 5
+      </span>
+
+      <button id="nextPhoto">
+        Next →
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================
+     ADMIN
+===================== -->
+
+<div id="admin" hidden>
+
+<div class="admin-top">
+
+  <div>
+
+    <div class="admin-title">
+      CLUB WEBSITE EDITOR
+    </div>
+
+    <div
+      class="save-status"
+      id="saveStatus"
+    >
+      All changes saved
+    </div>
+
+  </div>
+
+  <div class="admin-top-actions">
+
+    <button id="resetWebsite">
+      Reset
+    </button>
+
+    <button id="closeAdmin">
+      View Website
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="editor-layout">
+
+
+<!-- LEFT 60% -->
+
+<div class="editor">
+
+  <div class="editor-heading">
+
+    <div>
+
+      <h2>
+        Live Editor
+      </h2>
+
+      <p>
+        Changes appear instantly →
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- BRAND -->
+
+  <div class="editor-section">
+
+    <h3>
+      Club & Colours
+    </h3>
+
+    <label class="field">
+
+      <span>
+        Club name
+      </span>
+
+      <input
+        id="editClubName"
+        type="text"
+      >
+
+    </label>
+
+
+    <div class="field-grid">
+
+      <label class="field">
+
+        <span>
+          Merino
+        </span>
+
+        <input
+          id="editMerino"
+          type="color"
+        >
+
+      </label>
+
+
+      <label class="field">
+
+        <span>
+          Rock Blue
+        </span>
+
+        <input
+          id="editRock"
+          type="color"
+        >
+
+      </label>
+
+
+      <label class="field">
+
+        <span>
+          Venice Blue
+        </span>
+
+        <input
+          id="editVenice"
+          type="color"
+        >
+
+      </label>
+
+    </div>
+
+  </div>
+
+
+  <!-- HERO -->
+
+  <div class="editor-section">
+
+    <h3>
+      Homepage Hero
+    </h3>
+
+
+    <label class="field">
+
+      <span>
+        Small heading
+      </span>
+
+      <input
+        id="editHeroEyebrow"
+        type="text"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Main heading
+      </span>
+
+      <textarea
+        id="editHeroHeading"
+      ></textarea>
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Description
+      </span>
+
+      <textarea
+        id="editHeroDescription"
+      ></textarea>
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Button wording
+      </span>
+
+      <input
+        id="editHeroButton"
+        type="text"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Button hyperlink
+      </span>
+
+      <input
+        id="editHeroURL"
+        type="text"
+        placeholder="#round"
+      >
+
+    </label>
+
+  </div>
+
+
+  <!-- ABOUT -->
+
+  <div class="editor-section">
+
+    <h3>
+      About Section
+    </h3>
+
+
+    <label class="field">
+
+      <span>
+        Heading
+      </span>
+
+      <input
+        id="editAboutHeading"
+        type="text"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Description
+      </span>
+
+      <textarea
+        id="editAboutText"
+      ></textarea>
+
+    </label>
+
+  </div>
+
+
+  <div class="editor-section">
+    <h3>Photo Library</h3>
+    <label class="field"><span>Upload photos</span><input id="libraryUpload" type="file" accept="image/*" multiple></label>
+    <p id="photoStatus" role="status" aria-live="polite"></p>
+    <p id="libraryEmpty">No uploaded photos.</p>
+    <div id="photoLibrary"></div>
+    <button class="editor-btn" id="addSelectedPhoto" disabled>Add to Live Website Preview</button>
+  </div>
+
+  <!-- GALLERY -->
+
+  <div class="editor-section">
+
+    <h3>
+      Photo Fan Gallery
+    </h3>
+
+    <p style="color:#718087;font-size:13px;">
+      These photos fan apart when hovered
+      and open a slideshow when clicked.
+    </p>
+
+
+    <label class="field">
+
+      <span>
+        Gallery heading
+      </span>
+
+      <input
+        id="editGalleryHeading"
+        type="text"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Add photo
+      </span>
+
+      <input
+        id="photoUpload"
+        type="file"
+        accept="image/*"
+      >
+
+    </label>
+
+
+    <button
+      class="editor-btn danger"
+      id="removeLastPhoto"
+    >
+      Remove last photo
+    </button>
+
+  </div>
+
+
+  <!-- INTERACTIVE LINKS -->
+
+  <div class="editor-section">
+
+    <h3>
+      Interactive Hyperlinks
+    </h3>
+
+    <p style="font-size:13px;color:#718087;">
+      This is where we'll add your custom
+      interactions when you give me the code.
+    </p>
+
+
+    <label class="field">
+
+      <span>
+        Link text
+      </span>
+
+      <input
+        id="interactiveText"
+        value="View club gallery"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Link destination
+      </span>
+
+      <input
+        id="interactiveURL"
+        value="#photos"
+      >
+
+    </label>
+
+
+    <label class="field">
+
+      <span>
+        Hover interaction
+      </span>
+
+      <select id="interactiveEffect">
+
+        <option value="underline">
+          Underline Sweep
+        </option>
+
+        <option value="arrow">
+          Arrow Reveal
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <div
+      style="
+        padding:20px;
+        background:#F5EEDD;
+        color:#16587B;
+      "
+    >
+
+      <div
+        style="
+          font-size:11px;
+          font-weight:900;
+          margin-bottom:15px;
+        "
+      >
+        LIVE INTERACTION PREVIEW
+      </div>
+
+
+      <a
+        href="#"
+        class="interactive-link"
+        id="interactionPreview"
+      >
+
+        View club gallery
+
+        <span class="arrow">
+          →
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- RIGHT 40% LIVE PREVIEW -->
+
+<aside class="preview-side">
+
+  <div class="preview-label">
+
+    <span>
+      Live Website Preview
+    </span>
+
+    <span id="previewStatus">
+      LIVE
+    </span>
+
+  </div>
+
+
+  <div class="preview-window">
+
+    <div
+      class="preview-mini-nav"
+      id="previewClubName"
+    >
+      YOUR CLUB
+    </div>
+
+
+    <div class="preview-hero">
+
+      <div>
+
+        <div
+          class="eyebrow"
+          id="previewEyebrow"
+        >
+          Welcome to our club
+        </div>
+
+
+        <h2
+          id="previewHeading"
+        >
+          Where the game meets
+          the community.
+        </h2>
+
+
+        <p
+          id="previewDescription"
+        >
+          Competition, community
+          and great moments.
+        </p>
+
+
+        <a
+          class="interactive-link"
+          id="previewButton"
+          href="#"
+        >
+
+          <span id="previewButtonText">
+            View Round Robin
+          </span>
+
+          <span class="arrow">
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="preview-section">
+
+      <div class="eyebrow">
+        About
+      </div>
+
+      <h2 id="previewAboutHeading">
+        More than just a game.
+      </h2>
+
+      <p id="previewAboutText"></p>
+
+    </div>
+
+
+    <div class="preview-photo">
+
+      <div class="eyebrow">
+        Gallery
+      </div>
+
+      <h2 id="previewGalleryHeading">
+        The Moments.
+      </h2>
+
+      <div class="preview-fan-area">
+        <div class="photo-fan" id="previewPhotoFan" tabindex="0" role="button" aria-label="Open preview photo gallery"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</aside>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const STORAGE_KEY = "clubWebsiteLiveEditorV1";
+
+const defaults = {
+
+  clubName:"YOUR CLUB",
+
+  colours:{
+    merino:"#F5EEDD",
+    rock:"#84B3CE",
+    venice:"#16587B"
+  },
+
+  hero:{
+    eyebrow:"Welcome to our club",
+    heading:"Where the game meets the community.",
+    description:
+      "Competition, community and great moments. Follow everything happening around the club.",
+    button:"View Round Robin",
+    url:"#round"
+  },
+
+  about:{
+    heading:"More than just a game.",
+    text:
+      "Our club brings together competition, community and great experiences throughout the season."
+  },
+
+  gallery:{
+    heading:"The Moments."
+  },
+
+  photos:[],
+  photoLibrary:[],
+  announcements:{
+    text:"EVENTS · COMPETITION · COMMUNITY · CLUB NEWS",
+    visible:true,background:"",colour:"",align:"center",
+    size:16,padding:34,spacing:1.92,bold:true,uppercase:true,
+    url:"",newTab:false
+  }
+
+};
+
+
+let data = loadData();
+
+let saveTimer;
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function loadData(){
+
+  try{
+
+    const stored =
+      localStorage.getItem(STORAGE_KEY);
+
+    if(!stored)
+      return structuredClone(defaults);
+
+    const parsed =
+      JSON.parse(stored);
+
+    return {
+      ...structuredClone(defaults),
+      ...parsed,
+      colours:{
+        ...defaults.colours,
+        ...(parsed.colours || {})
+      },
+      hero:{
+        ...defaults.hero,
+        ...(parsed.hero || {})
+      },
+      about:{
+        ...defaults.about,
+        ...(parsed.about || {})
+      },
+      gallery:{
+        ...defaults.gallery,
+        ...(parsed.gallery || {})
+      }
+    };
+
+  }catch(error){
+
+    return structuredClone(defaults);
+
+  }
+
+}
+
+
+function autoSave(){
+
+  document.getElementById(
+    "saveStatus"
+  ).textContent =
+    "Saving…";
+
+
+  clearTimeout(saveTimer);
+
+
+  saveTimer =
+    setTimeout(()=>{
+
+      try{
+
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(data)
+        );
+
+        document.getElementById(
+          "saveStatus"
+        ).textContent =
+          "✓ All changes saved";
+
+      }catch(error){
+
+        document.getElementById(
+          "saveStatus"
+        ).textContent =
+          "Could not save — image storage may be full";
+
+      }
+
+    },300);
+
+}
+
+
+/* =========================
+   EDITOR VALUES
+========================= */
+
+function populateEditor(){
+
+  editClubName.value =
+    data.clubName;
+
+  editMerino.value =
+    data.colours.merino;
+
+  editRock.value =
+    data.colours.rock;
+
+  editVenice.value =
+    data.colours.venice;
+
+
+  editHeroEyebrow.value =
+    data.hero.eyebrow;
+
+  editHeroHeading.value =
+    data.hero.heading;
+
+  editHeroDescription.value =
+    data.hero.description;
+
+  editHeroButton.value =
+    data.hero.button;
+
+  editHeroURL.value =
+    data.hero.url;
+
+
+  editAboutHeading.value =
+    data.about.heading;
+
+  editAboutText.value =
+    data.about.text;
+
+
+  editGalleryHeading.value =
+    data.gallery.heading;
+
+}
+
+
+/* =========================
+   RENDER WEBSITE
+========================= */
+
+function render(){
+  const announcement={...defaults.announcements,...data.announcements};
+  const banner=document.getElementById('introText');
+  banner.replaceChildren();
+  if(announcement.url){
+    const link=document.createElement('a');
+    link.textContent=announcement.text;link.href=announcement.url;
+    link.style.color='inherit';link.style.textDecoration='underline';
+    if(announcement.newTab){link.target='_blank';link.rel='noopener noreferrer';}
+    banner.append(link);
+  }else{banner.textContent=announcement.text;}
+  banner.hidden=!announcement.visible;
+  Object.assign(banner.style,{
+    background:announcement.background||data.colours.rock,
+    color:announcement.colour||data.colours.venice,
+    textAlign:announcement.align,fontSize:announcement.size+'px',
+    padding:announcement.padding+'px 5vw',
+    letterSpacing:announcement.spacing+'px',fontWeight:announcement.bold?'900':'400',
+    textTransform:announcement.uppercase?'uppercase':'none',
+    whiteSpace:'pre-wrap',overflowWrap:'anywhere'
+  });
+
+  document.documentElement.style
+    .setProperty(
+      "--merino",
+      data.colours.merino
+    );
+
+  document.documentElement.style
+    .setProperty(
+      "--rock",
+      data.colours.rock
+    );
+
+  document.documentElement.style
+    .setProperty(
+      "--venice",
+      data.colours.venice
+    );
+
+
+  document
+    .querySelectorAll(
+      "[data-club-name]"
+    )
+    .forEach(el=>{
+      el.textContent =
+        data.clubName;
+    });
+
+
+  heroEyebrow.textContent =
+    data.hero.eyebrow;
+
+  heroHeading.textContent =
+    data.hero.heading;
+
+  heroDescription.textContent =
+    data.hero.description;
+
+  heroButtonText.textContent =
+    data.hero.button;
+
+  heroLink.href =
+    data.hero.url || "#";
+
+
+  aboutHeading.textContent =
+    data.about.heading;
+
+  aboutText.textContent =
+    data.about.text;
+
+
+  galleryHeading.textContent =
+    data.gallery.heading;
+
+
+  /* ADMIN PREVIEW */
+
+  previewClubName.textContent =
+    data.clubName;
+
+  previewEyebrow.textContent =
+    data.hero.eyebrow;
+
+  previewHeading.textContent =
+    data.hero.heading;
+
+  previewDescription.textContent =
+    data.hero.description;
+
+  previewButtonText.textContent =
+    data.hero.button;
+
+  previewButton.href =
+    data.hero.url || "#";
+
+
+  previewAboutHeading.textContent =
+    data.about.heading;
+
+  previewAboutText.textContent =
+    data.about.text;
+
+  previewGalleryHeading.textContent =
+    data.gallery.heading;
+
+
+  renderFan();
+  renderPhotoLibrary();
+
+}
+
+
+/* =========================
+   LIVE INPUTS
+========================= */
+
+function bindInput(
+  id,
+  callback
+){
+
+  const element =
+    document.getElementById(id);
+
+
+  element.addEventListener(
+    "input",
+    ()=>{
+
+      callback(
+        element.value
+      );
+
+      render();
+
+      autoSave();
+
+    }
+  );
+
+}
+
+
+bindInput(
+  "editClubName",
+  value=>data.clubName=value
+);
+
+
+bindInput(
+  "editMerino",
+  value=>data.colours.merino=value
+);
+
+
+bindInput(
+  "editRock",
+  value=>data.colours.rock=value
+);
+
+
+bindInput(
+  "editVenice",
+  value=>data.colours.venice=value
+);
+
+
+bindInput(
+  "editHeroEyebrow",
+  value=>data.hero.eyebrow=value
+);
+
+
+bindInput(
+  "editHeroHeading",
+  value=>data.hero.heading=value
+);
+
+
+bindInput(
+  "editHeroDescription",
+  value=>data.hero.description=value
+);
+
+
+bindInput(
+  "editHeroButton",
+  value=>data.hero.button=value
+);
+
+
+bindInput(
+  "editHeroURL",
+  value=>data.hero.url=value
+);
+
+
+bindInput(
+  "editAboutHeading",
+  value=>data.about.heading=value
+);
+
+
+bindInput(
+  "editAboutText",
+  value=>data.about.text=value
+);
+
+
+bindInput(
+  "editGalleryHeading",
+  value=>data.gallery.heading=value
+);
+
+
+/* =========================
+   ADMIN OPEN / CLOSE
+========================= */
+
+openAdmin.addEventListener(
+  "click",
+  ()=>{
+
+    document.getElementById('adminLogin').showModal();
+    document.getElementById('adminPassword').focus();
+
+    document.body.style
+      .overflow="hidden";
+
+  }
+);
+
+
+closeAdmin.addEventListener(
+  "click",
+  ()=>{
+
+    admin.hidden=true;
+
+    document.body.style
+      .overflow="";
+
+  }
+);
+
+
+/* =========================
+   PHOTO UPLOAD
+========================= */
+
+async function uploadPhotos(input, addToGallery){
+  const status = document.getElementById("photoStatus");
+  input.disabled = true;
+  let added = 0;
+  const errors = [];
+  for(const file of input.files){
+    status.textContent = "Uploading " + file.name + "...";
+    try{
+      if(!file.type.startsWith("image/")) throw new Error("Choose an image file.");
+      const url = URL.createObjectURL(file);
+      let image;
+      try{
+        image = new Image();
+        image.src = url;
+        await image.decode();
+      }finally{ URL.revokeObjectURL(url); }
+      const canvas = document.createElement("canvas");
+      const scale = Math.min(1, 1280 / Math.max(image.width, image.height));
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const photo = {id:crypto.randomUUID(), name:file.name, src:canvas.toDataURL("image/jpeg", .8)};
+      const before = structuredClone(data);
+      data.photoLibrary = data.photoLibrary || [];
+      data.photoLibrary.push(photo);
+      if(addToGallery) data.photos.push(photo.src);
+      if(!persistPhotos()){ data = before; throw new Error("Browser storage is full. This photo was not saved."); }
+      selectedPhoto = photo.id;
+      added++;
+    }catch(error){ errors.push(file.name + ": " + error.message); }
+  }
+  input.value = "";
+  input.disabled = false;
+  render();
+  status.textContent = (added ? added + " photo(s) saved" + (addToGallery ? " and added to the gallery." : ".") : "") + (errors.length ? " " + errors.join(" ") : "");
+}
+function persistPhotos(){
+  clearTimeout(saveTimer);
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    saveStatus.textContent = "All changes saved";
+    return true;
+  }catch(error){
+    saveStatus.textContent = "Could not save photos: browser storage is full or unavailable.";
+    return false;
+  }
+}
+let selectedPhoto = null;
+function renderPhotoLibrary(){
+  const library = document.getElementById("photoLibrary");
+  if(!library) return;
+  library.replaceChildren();
+  for(const photo of data.photoLibrary || []){
+    const label = document.createElement("label");
+    label.className = "library-photo";
+    label.draggable = true;
+    label.addEventListener("dragstart", event => {
+      event.dataTransfer.setData("text/plain", photo.id);
+      event.dataTransfer.effectAllowed = "copy";
+    });
+    const radio = document.createElement("input");
+    radio.type = "radio"; radio.name = "librarySelection";
+    radio.value = photo.id; radio.checked = selectedPhoto === photo.id;
+    radio.addEventListener("change", () => {selectedPhoto = photo.id; renderPhotoLibrary();});
+    const image = document.createElement("img");
+    image.src = photo.src; image.alt = photo.name;
+    const caption = document.createElement("span"); caption.textContent = photo.name;
+    label.append(radio, image, caption); library.append(label);
+  }
+  document.getElementById("libraryEmpty").hidden = !!(data.photoLibrary || []).length;
+  const chosen = (data.photoLibrary || []).find(p => p.id === selectedPhoto);
+  const button = document.getElementById("addSelectedPhoto");
+  button.disabled = !chosen;
+  button.textContent = chosen && data.photos.includes(chosen.src) ? "Show in Live Website Preview" : "Add to Live Website Preview";
+}
+photoUpload.addEventListener("change", event => uploadPhotos(event.target, true));
+document.getElementById("libraryUpload").addEventListener("change", event => uploadPhotos(event.target, false));
+document.getElementById("addSelectedPhoto").addEventListener("click", () => {
+  const photo = (data.photoLibrary || []).find(p => p.id === selectedPhoto);
+  if(!photo) return;
+  const before = [...data.photos];
+  data.photos = data.photos.filter(src => src !== photo.src);
+  data.photos.push(photo.src);
+  if(!persistPhotos()){data.photos = before; return;}
+  render();
+  document.getElementById("photoStatus").textContent = "Photo added to the gallery and live preview.";
+  document.getElementById("previewPhotoFan").scrollIntoView({block:"center", behavior:"smooth"});
+});
+
+
+removeLastPhoto.addEventListener(
+  "click",
+  ()=>{
+
+    data.photos.pop();
+
+    render();
+
+    autoSave();
+
+  }
+);
+
+
+/* =========================
+   DEFAULT PHOTO FALLBACKS
+========================= */
+
+const demoPhotos = [
+
+  "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=80",
+
+  "https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=900&q=80",
+
+  "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&w=900&q=80",
+
+  "https://images.unsplash.com/photo-1547347298-4074fc3086f0?auto=format&fit=crop&w=900&q=80",
+
+  "https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&w=900&q=80"
+
+];
+
+
+function currentPhotos(){
+
+  return data.photos.length
+    ? data.photos
+    : demoPhotos;
+
+}
+
+
+/* =========================
+   FAN
+========================= */
+
+function renderFan(){
+
+  const fan =
+    document.getElementById(
+      "photoFan"
+    );
+
+
+  fan.innerHTML="";
+
+
+  currentPhotos()
+    .slice(-5)
+    .forEach((src,index)=>{
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "fan-card";
+
+
+      const img =
+        document.createElement(
+          "img"
+        );
+
+      img.src=src;
+
+      img.alt=
+        "Club photo " +
+        (index+1);
+
+
+      card.appendChild(img);
+
+      fan.appendChild(card);
+
+    });
+
+  const previewFan = document.getElementById("previewPhotoFan");
+  previewFan.replaceChildren(...Array.from(fan.children, card => card.cloneNode(true)));
+}
+
+
+/* =========================
+   GALLERY VIEWER
+========================= */
+
+let photoIndex=0;
+
+
+function openGallery(){
+
+  photoIndex=currentPhotos().length-1;
+
+  updateViewer();
+
+  viewer.hidden=false;
+
+  document.body.style
+    .overflow="hidden";
+
+}
+
+
+function updateViewer(){
+
+  const photos =
+    currentPhotos();
+
+  if(!photos.length)
+    return;
+
+
+  photoIndex =
+    (
+      photoIndex +
+      photos.length
+    ) %
+    photos.length;
+
+
+  viewerImage.src =
+    photos[photoIndex];
+
+
+  viewerCount.textContent =
+    `${photoIndex+1} / ${photos.length}`;
+
+}
+
+
+photoFan.addEventListener(
+  "click",
+  openGallery
+);
+
+document.getElementById("previewPhotoFan").addEventListener("click", openGallery);
+document.getElementById("previewPhotoFan").addEventListener("keydown", event => {
+  if(event.key === "Enter" || event.key === " "){event.preventDefault(); openGallery();}
+});
+
+
+photoFan.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      event.key==="Enter" ||
+      event.key===" "
+    ){
+
+      event.preventDefault();
+
+      openGallery();
+
+    }
+
+  }
+);
+
+
+previousPhoto.addEventListener(
+  "click",
+  ()=>{
+
+    photoIndex--;
+
+    updateViewer();
+
+  }
+);
+
+
+nextPhoto.addEventListener(
+  "click",
+  ()=>{
+
+    photoIndex++;
+
+    updateViewer();
+
+  }
+);
+
+
+closeViewer.addEventListener(
+  "click",
+  ()=>{
+
+    viewer.hidden=true;
+
+    document.body.style
+      .overflow="";
+
+  }
+);
+
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(viewer.hidden)
+      return;
+
+
+    if(event.key==="ArrowLeft"){
+
+      photoIndex--;
+
+      updateViewer();
+
+    }
+
+
+    if(event.key==="ArrowRight"){
+
+      photoIndex++;
+
+      updateViewer();
+
+    }
+
+
+    if(event.key==="Escape"){
+
+      viewer.hidden=true;
+
+      document.body.style
+        .overflow="";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   INTERACTION PREVIEW
+========================= */
+
+function updateInteraction(){
+
+  const text =
+    interactiveText.value.trim()
+    || "Interactive link";
+
+
+  interactionPreview
+    .childNodes[0]
+    .nodeValue =
+      text + " ";
+
+
+  interactionPreview.href =
+    interactiveURL.value || "#";
+
+}
+
+
+interactiveText.addEventListener(
+  "input",
+  updateInteraction
+);
+
+
+interactiveURL.addEventListener(
+  "input",
+  updateInteraction
+);
+
+
+/* =========================
+   RESET
+========================= */
+
+resetWebsite.addEventListener(
+  "click",
+  ()=>{
+
+    const confirmed =
+      confirm(
+        "Reset the website back to its default design?"
+      );
+
+
+    if(!confirmed)
+      return;
+
+
+    localStorage.removeItem(
+      STORAGE_KEY
+    );
+
+
+    data =
+      structuredClone(defaults);
+
+
+    populateEditor();
+
+    render();
+
+    autoSave();
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
+
+populateEditor();
+
+render();
+
+updateInteraction();
+
+</script>
+
+<style>
+#rr-admin{background:white;color:#163e52;font:15px Arial,sans-serif} [hidden]{display:none!important}
+.rr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}.rr-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}.rr-panel{min-width:0}.rr-panel h2{font-size:24px;margin:24px 0 16px;letter-spacing:0}.rr-panel h3{font-size:18px;margin:22px 0 12px}.rr-panel label{display:block;margin:12px 0 6px}.rr-panel input{padding:10px;border:1px solid #aabcc5;border-radius:4px;max-width:100%;font:inherit;color:#163e52;background:white}.rr-panel button,.rr-bar button{padding:10px 14px;background:#16587b;color:white;border:0;border-radius:4px;font:inherit;cursor:pointer}.rr-team{display:flex;gap:8px;margin:8px 0}.rr-team input{flex:1;min-width:0}.rr-match{display:grid;grid-template-columns:minmax(0,1fr) 70px 20px 70px minmax(0,1fr);align-items:center;gap:8px;border-bottom:1px solid #cbd5da;padding:12px 0}.rr-match span{overflow-wrap:anywhere}.rr-match input{width:70px}.rr-table{width:100%;border-collapse:collapse;font-size:14px}.rr-table th,.rr-table td{text-align:left;padding:10px 7px;border-bottom:1px solid #b9cbd4;overflow-wrap:anywhere}.rr-scroll{overflow:auto}.rr-preview{background:#e5eff4;padding:20px;align-self:start}.rr-muted{font-size:13px;color:#526976}.rr-actions{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}#rr-public h2{font-size:36px;letter-spacing:0;line-height:1.15;margin-bottom:20px}#rr-public h3{margin:24px 0 12px}#rr-public{max-width:1250px;margin:auto}#rr-public p{padding:8px 0}#rr-status{font-size:13px}button:disabled{opacity:.5;cursor:default}@media(max-width:800px){.rr-layout{grid-template-columns:1fr}#rr-admin{padding:16px}.rr-match{grid-template-columns:minmax(0,1fr) 56px 12px 56px minmax(0,1fr);gap:4px}.rr-match input{width:56px}.rr-preview{padding:12px}}
+</style>
+<section id="rr-admin" class="editor-section" aria-label="Round robin admin">
+ <div class="rr-bar"><div><h3>Round Robin</h3><span id="rr-status" role="status">All changes saved</span></div></div>
+ <div class="rr-layout"><div class="rr-panel">
+ <label for="rr-title">Tournament name</label><input id="rr-title" maxlength="100">
+ <h2>Teams</h2><div id="rr-teams"></div><button id="rr-add">+ Add team</button>
+ <div class="rr-actions"><button id="rr-generate">Generate fixtures</button><button id="rr-reset">Reset fixtures</button></div>
+ <p class="rr-muted" id="rr-hint"></p><h2>Match scores</h2><div id="rr-matches"></div>
+ </div><aside class="rr-panel rr-preview"><h2>Live standings</h2><p class="rr-muted">Win: 3 points · Draw: 1 point · Loss: 0 points</p><div id="rr-preview"></div></aside></div>
+</section>
+<script>
+(() => {
+ 'use strict';
+ const key='club-round-robin-v1';
+ let state={title:'Club Round Robin',teams:[1,2,3,4].map(n=>({id:String(n),name:'Team '+n})),rounds:[]};
+ let storageError=false;
+ try{const saved=JSON.parse(localStorage.getItem(key));if(saved&&Array.isArray(saved.teams)&&Array.isArray(saved.rounds)&&typeof saved.title==='string')state=saved;}catch{storageError=true;}
+ const $=id=>document.getElementById(id);
+ const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const name=id=>state.teams.find(t=>t.id===id)?.name||'Bye';
+ function save(){try{localStorage.setItem(key,JSON.stringify(state));$('rr-status').textContent='All changes saved in this browser';}catch{$('rr-status').textContent='Unable to save. Keep this page open; browser storage may be full or disabled.';}renderPublic();}
+ // Circle scheduling keeps one slot fixed and rotates the others between rounds.
+ function schedule(ids){const ring=[...ids];if(ring.length%2)ring.push(null);const rounds=[];for(let r=0;r<ring.length-1;r++){const matches=[];for(let i=0;i<ring.length/2;i++)matches.push({a:ring[i],b:ring[ring.length-1-i],sa:null,sb:null});rounds.push(matches);ring.splice(1,0,ring.pop());}return rounds;}
+ function standings(){const rows=state.teams.map(t=>({...t,p:0,w:0,d:0,l:0,pts:0,diff:0}));const map=new Map(rows.map(t=>[t.id,t]));state.rounds.flat().forEach(m=>{if(!m.a||!m.b||m.sa===null||m.sb===null)return;const a=map.get(m.a),b=map.get(m.b);a.p++;b.p++;a.diff+=m.sa-m.sb;b.diff+=m.sb-m.sa;if(m.sa===m.sb){a.d++;b.d++;a.pts++;b.pts++;}else{const winner=m.sa>m.sb?a:b,loser=m.sa>m.sb?b:a;winner.w++;winner.pts+=3;loser.l++;}});return rows.sort((a,b)=>b.pts-a.pts||b.diff-a.diff||a.name.localeCompare(b.name));}
+ function table(){return '<div class="rr-scroll"><table class="rr-table"><thead><tr>'+['Team','P','W','D','L','+/-','Pts'].map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>'+standings().map(t=>'<tr>'+[escape(t.name),t.p,t.w,t.d,t.l,t.diff,t.pts].map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';}
+ document.querySelector('.editor').appendChild($('rr-admin'));
+ const publicSection=document.querySelector('#round');publicSection.innerHTML='<div id="rr-public"></div>';
+ function renderPublic(){$('rr-preview').innerHTML=table();$('rr-public').innerHTML='<h2>'+escape(state.title)+'</h2>'+table()+state.rounds.map((round,r)=>'<h3>Round '+(r+1)+'</h3>'+round.map(m=>'<p>'+(m.a&&m.b?escape(name(m.a))+' <strong>'+(m.sa===null?'—':m.sa)+' : '+(m.sb===null?'—':m.sb)+'</strong> '+escape(name(m.b)):escape(name(m.a||m.b))+' — Bye')+'</p>').join('')).join('');}
+ function renderTeams(){$('rr-teams').innerHTML=state.teams.map((t,i)=>'<div class="rr-team"><input aria-label="Team '+(i+1)+' name" maxlength="80" data-team="'+t.id+'" value="'+escape(t.name)+'"><button data-remove="'+t.id+'" aria-label="Remove '+escape(t.name)+'" title="Remove team" '+(state.rounds.length?'disabled':'')+'>×</button></div>').join('');$('rr-add').disabled=state.rounds.length>0;$('rr-generate').disabled=state.rounds.length>0;$('rr-reset').disabled=!state.rounds.length;$('rr-hint').textContent=state.rounds.length?'Fixtures created. Reset fixtures to change the team roster. Team names remain editable.':'Each team plays every opponent once. An odd number of teams receives one bye each.';}
+ function renderMatches(){$('rr-matches').innerHTML=state.rounds.length?state.rounds.map((round,r)=>'<h3>Round '+(r+1)+'</h3>'+round.map((m,i)=>m.a&&m.b?'<div class="rr-match"><span>'+escape(name(m.a))+'</span><input type="number" min="0" max="99999" step="1" aria-label="Round '+(r+1)+' '+escape(name(m.a))+' score" data-r="'+r+'" data-i="'+i+'" data-side="sa" value="'+(m.sa??'')+'"><span>:</span><input type="number" min="0" max="99999" step="1" aria-label="Round '+(r+1)+' '+escape(name(m.b))+' score" data-r="'+r+'" data-i="'+i+'" data-side="sb" value="'+(m.sb??'')+'"><span>'+escape(name(m.b))+'</span></div>':'<p>'+escape(name(m.a||m.b))+' — Bye</p>').join('')).join(''):'<p class="rr-muted">No fixtures yet.</p>';}
+ $('rr-title').value=state.title;$('rr-title').oninput=e=>{state.title=e.target.value;save();};
+ $('rr-add').onclick=()=>{state.teams.push({id:crypto.randomUUID(),name:'Team '+(state.teams.length+1)});renderTeams();save();};
+ $('rr-teams').oninput=e=>{if(!e.target.dataset.team)return;state.teams.find(t=>t.id===e.target.dataset.team).name=e.target.value;renderMatches();save();};
+ $('rr-teams').onclick=e=>{const id=e.target.dataset.remove;if(!id||state.rounds.length)return;state.teams=state.teams.filter(t=>t.id!==id);renderTeams();save();};
+ $('rr-generate').onclick=()=>{const names=state.teams.map(t=>t.name.trim().toLowerCase());if(names.length<2||names.some(n=>!n)||new Set(names).size!==names.length){alert('Add at least two teams with unique, non-empty names.');return;}state.rounds=schedule(state.teams.map(t=>t.id));renderTeams();renderMatches();save();};
+ $('rr-reset').onclick=()=>{if(!confirm('Delete all fixtures and scores? Team names will be kept.'))return;state.rounds=[];renderTeams();renderMatches();save();};
+ $('rr-matches').oninput=e=>{const el=e.target;if(!el.dataset.side)return;if(!el.validity.valid){el.reportValidity();return;}state.rounds[Number(el.dataset.r)][Number(el.dataset.i)][el.dataset.side]=el.value===''?null:Number(el.value);save();};
+ renderTeams();renderMatches();renderPublic();if(storageError)$('rr-status').textContent='Saved data could not be loaded.';
+ const liveRound=document.createElement('div');liveRound.className='preview-section';liveRound.innerHTML='<h2>Round Robin</h2>';document.querySelector('.preview-window').appendChild(liveRound);liveRound.appendChild(document.querySelector('#rr-admin .rr-preview'));
+ window.rrTest={schedule,standings,getState:()=>state};
+})();
+</script>
+<style>
+.photo-drop{position:relative}.photo-drop.drag-over{outline:3px solid #168276;outline-offset:-3px}
+.drop-label{position:absolute;top:8px;right:8px;background:white;color:#16587b;padding:6px;border:1px dashed #16587b;font-size:12px}
+#previewAboutImage{height:220px;background:var(--rock)}
+#fanPhotos{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}#fanPhotos img{width:70px;height:70px;object-fit:cover}
+#imagePlacement input{width:100%}
+</style>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const about=document.createElement('div');about.id='previewAboutImage';document.querySelector('.preview-section').prepend(about);
+ const controls=document.createElement('section');controls.id='imagePlacement';controls.className='editor-section';
+ controls.innerHTML='<h3>Image Placement</h3><label class="field"><span>Image location</span><select id="placeTarget"><option value="hero">Hero image</option><option value="about">About image</option><option value="gallery">Photo fan</option></select></label><button class="editor-btn" id="placeSelected">Place selected photo</button><label class="field"><span>Horizontal position</span><input id="cropX" type="range" min="0" max="100" value="50"></label><label class="field"><span>Vertical position</span><input id="cropY" type="range" min="0" max="100" value="50"></label><label class="field"><span>Zoom</span><input id="cropZoom" type="range" min="100" max="200" value="100"></label><p id="placeStatus" role="status"></p>';
+ $('photoLibrary').closest('.editor-section').after(controls);
+ const savePlacement=document.createElement('button');
+ savePlacement.id='saveImagePlacement';savePlacement.type='button';
+ savePlacement.className='editor-btn';savePlacement.textContent='Save Changes';
+ $('placeStatus').before(savePlacement);
+ savePlacement.onclick=()=>{
+   if(persistPhotos()){
+     $('placeStatus').textContent='Image placement and adjustments saved.';
+   }else{
+     $('placeStatus').textContent='Changes could not be saved. Browser storage is full or unavailable.';
+   }
+ };
+ const fanList=document.createElement('div');fanList.id='fanPhotos';$('photoUpload').closest('.field').after(fanList);
+ const targets={hero:document.querySelector('.preview-hero'),about,gallery:document.querySelector('.preview-fan-area')};
+ let galleryId=null;
+ function current(){return $('placeTarget').value==='gallery'?(data.photoLibrary||[]).find(p=>p.id===galleryId)?.crop:data.placements?.[$('placeTarget').value];}
+ function sync(){const item=current();for(const [id,key,def] of [['cropX','x',50],['cropY','y',50],['cropZoom','zoom',100]]){$(id).disabled=!item;$(id).value=item?.[key]??def;}}
+ function place(id,target){
+   const photo=(data.photoLibrary||[]).find(p=>p.id===id);if(!photo){$('placeStatus').textContent='Select a library photo first.';return;}
+   const before=structuredClone(data);
+   if(target==='gallery'){if(!data.photos.includes(photo.src))data.photos.push(photo.src);photo.crop||={x:50,y:50,zoom:100};galleryId=id;}
+   else{data.placements||={};data.placements[target]={id,x:50,y:50,zoom:100};}
+   if(!persistPhotos()){data=before;return;}
+   $('placeTarget').value=target;render();sync();$('placeStatus').textContent='Photo placed in '+target+'.';
+ }
+ for(const [target,element] of Object.entries(targets)){
+   element.classList.add('photo-drop');
+   const label=document.createElement('span');label.className='drop-label';label.textContent=target==='gallery'?'Photo fan':target==='hero'?'Hero image':'About image';element.append(label);
+   element.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';element.classList.add('drag-over');});
+   element.addEventListener('dragleave',()=>element.classList.remove('drag-over'));
+   element.addEventListener('drop',e=>{e.preventDefault();element.classList.remove('drag-over');place(e.dataTransfer.getData('text/plain'),target);});
+ }
+ $('placeSelected').onclick=()=>place(selectedPhoto,$('placeTarget').value);
+ $('placeTarget').onchange=sync;
+ for(const id of ['cropX','cropY','cropZoom'])$(id).oninput=()=>{
+   const item=current();if(!item)return;const before=structuredClone(data);
+   Object.assign(item,{x:Number($('cropX').value),y:Number($('cropY').value),zoom:Number($('cropZoom').value)});
+   const saved=persistPhotos();
+   if(!saved)data=before;render();sync();
+   $('placeStatus').textContent=saved?'Image adjustments updated.':'Changes could not be saved. Browser storage is full or unavailable.';
+ };
+ function paint(){
+   for(const target of ['hero','about']){
+     const item=data.placements?.[target],photo=(data.photoLibrary||[]).find(p=>p.id===item?.id);
+     for(const element of [targets[target],$(target==='hero'?'hero':'aboutImage')]){
+       if(!photo){element.style.backgroundImage='';continue;}
+       element.style.backgroundImage=(target==='hero'?'linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)),':'')+'url("'+photo.src+'")';
+       element.style.backgroundSize='cover';element.style.backgroundPosition=item.x+'% '+item.y+'%';element.style.backgroundRepeat='no-repeat';
+       const applySize=()=>{
+         if(element.dataset.photoSource!==photo.src)return;
+         const ratio=Math.max(element.clientWidth/image.naturalWidth,element.clientHeight/image.naturalHeight)*item.zoom/100;
+         const size=(image.naturalWidth*ratio)+'px '+(image.naturalHeight*ratio)+'px';
+         element.style.backgroundSize=target==='hero'?'100% 100%, '+size:size;
+       };
+       element.dataset.photoSource=photo.src;
+       const image=new Image();image.onload=applySize;image.src=photo.src;
+       if(image.complete&&image.naturalWidth)applySize();
+     }
+     if(target==='about')document.querySelector('.image-placeholder').hidden=!!photo;
+   }
+   document.querySelectorAll('#photoFan img, #previewPhotoFan img').forEach(img=>{
+     const crop=(data.photoLibrary||[]).find(p=>p.src===img.getAttribute('src'))?.crop;
+     if(crop){img.style.objectPosition=crop.x+'% '+crop.y+'%';img.style.transform='scale('+crop.zoom/100+')';img.style.transformOrigin=crop.x+'% '+crop.y+'%';}
+   });
+   fanList.replaceChildren();
+   data.photos.forEach((src,i)=>{
+     const button=document.createElement('button');button.type='button';button.title='Edit gallery photo '+(i+1);button.setAttribute('aria-label',button.title);
+     const img=document.createElement('img');img.src=src;img.alt=button.title;button.append(img);
+     button.onclick=()=>{
+       let p=(data.photoLibrary||[]).find(p=>p.src===src);
+       if(!p){data.photoLibrary||=[];p={id:crypto.randomUUID(),src,name:'Gallery photo '+(i+1)};data.photoLibrary.push(p);}
+       p.crop||={x:50,y:50,zoom:100};galleryId=p.id;selectedPhoto=p.id;$('placeTarget').value='gallery';sync();controls.scrollIntoView({block:'center'});
+     };fanList.append(button);
+   });
+ }
+ const baseRender=render;render=function(){baseRender();paint();};paint();sync();
+ window.addEventListener('resize',paint);
+ const placementResize=new ResizeObserver(paint);
+ placementResize.observe(document.getElementById('hero'));
+ placementResize.observe(document.getElementById('aboutImage'));
+})();
+</script>
+<style>
+.preview-window{position:relative;overflow:hidden;border-radius:6px}
+.preview-window > :not(#accuratePreview){display:none!important}
+#accuratePreview{display:block;border:0;transform-origin:top left;background:var(--merino)}
+</style>
+<script>
+(() => {
+ const container=document.querySelector('.preview-window');
+ const frame=document.createElement('iframe');
+ frame.id='accuratePreview';frame.title='Live website preview';
+ container.append(frame);
+ const doc=frame.contentDocument;
+ doc.open();doc.write('<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body></body></html>');doc.close();
+ document.querySelectorAll('head style').forEach(style=>doc.head.append(style.cloneNode(true)));
+ const style=doc.createElement('style');
+ style.textContent='html{scroll-behavior:auto;scrollbar-width:none}::-webkit-scrollbar{display:none}body{margin:0}.preview-drop-active{outline:4px solid #168276;outline-offset:-4px}';
+ doc.head.append(style);
+ function fit(){
+   const width=document.getElementById('website').getBoundingClientRect().width;
+   if(!width||!container.clientWidth)return;
+   const scale=container.clientWidth/width;
+   frame.style.width=width+'px';
+   frame.style.height=(container.clientHeight/scale)+'px';
+   frame.style.transform='scale('+scale+')';
+ }
+ function refresh(){
+   const scroll=frame.contentWindow.scrollY;
+   doc.documentElement.style.cssText=document.documentElement.style.cssText;
+   doc.body.replaceChildren(document.getElementById('website').cloneNode(true));
+   const areas={hero:'#hero',about:'#aboutImage',gallery:'#photoFan'};
+   const bridges={hero:document.querySelector('.preview-hero'),about:document.getElementById('previewAboutImage'),gallery:document.querySelector('.preview-fan-area')};
+   for(const [target,selector] of Object.entries(areas)){
+     const element=doc.querySelector(selector);
+     element.addEventListener('dragover',event=>{event.preventDefault();event.dataTransfer.dropEffect='copy';element.classList.add('preview-drop-active');});
+     element.addEventListener('dragleave',()=>element.classList.remove('preview-drop-active'));
+     element.addEventListener('drop',event=>{
+       event.preventDefault();element.classList.remove('preview-drop-active');
+       bridges[target].dispatchEvent(new DragEvent('drop',{dataTransfer:event.dataTransfer,cancelable:true}));
+     });
+   }
+   doc.getElementById('photoFan').addEventListener('click',openGallery);
+   doc.getElementById('photoFan').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openGallery();}});
+   doc.getElementById('openAdmin').addEventListener('click',()=>document.getElementById('imagePlacement').scrollIntoView({block:'center'}));
+   fit();frame.contentWindow.scrollTo(0,scroll);
+ }
+ let pending;
+ const observer=new MutationObserver(()=>{clearTimeout(pending);pending=setTimeout(refresh,40);});
+ observer.observe(document.getElementById('website'),{subtree:true,childList:true,attributes:true,characterData:true});
+ new ResizeObserver(fit).observe(container);
+ window.addEventListener('resize',fit);
+ refresh();
+})();
+</script>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const panel=document.createElement('section');panel.className='editor-section';
+ panel.innerHTML='<h3>Hyperlinks</h3><label class="field"><span>Link location</span><select id="linkLocation"><option value="navigation">Navigation</option><option value="heroDescription">Hero description</option><option value="aboutText">About text</option></select></label><label class="field"><span>Link text / words to link</span><input id="linkWords" type="text" maxlength="120"></label><label class="field"><span>Destination</span><input id="linkDestination" type="text" placeholder="https://example.com or #photos"></label><label class="field"><span>Hover effect</span><select id="linkHover"><option value="underline">Underline sweep</option><option value="arrow">Arrow reveal</option></select></label><label class="toggle-row"><span>Open in a new tab</span><input id="linkNewTab" type="checkbox"></label><div style="display:flex;gap:10px;margin-top:16px"><button class="editor-btn" id="saveHyperlink">Save Changes</button><button class="editor-btn" id="newHyperlink">New link</button></div><p id="linkMessage" role="status"></p><div id="hyperlinkList"></div>';
+ document.getElementById('interactiveEffect').closest('.editor-section').after(panel);
+ const zones=[
+   {value:'navigation',id:'siteHeader',name:'01 · Header & navigation'},
+   {value:'hero',id:'hero',name:'02 · Hero'},
+   {value:'introText',id:'introText',name:'03 · Announcements'},
+   {value:'about',id:'about',name:'04 · About the club'},
+   {value:'round',id:'round',name:'05 · Round Robin'},
+   {value:'photos',id:'photos',name:'06 · Photo gallery'},
+   {value:'news',id:'news',name:'07 · News & posts'}
+ ];
+ document.querySelector('.site-nav').id='siteHeader';
+ const locationSelect=$('linkLocation');
+ locationSelect.replaceChildren();
+ for(const zone of zones){const option=document.createElement('option');option.value=zone.value;option.textContent=zone.name;locationSelect.append(option);}
+ const wordsGroup=document.createElement('optgroup');wordsGroup.label='Link specific words';
+ for(const [value,name] of [['heroDescription','02 · Hero — description words'],['aboutText','04 · About — paragraph words']]){
+   const option=document.createElement('option');option.value=value;option.textContent=name;wordsGroup.append(option);
+ }
+ locationSelect.append(wordsGroup);
+ const destinationLabel=document.createElement('label');destinationLabel.className='field';
+ const destinationTitle=document.createElement('span');destinationTitle.textContent='Link to';
+ const destinationZone=document.createElement('select');destinationZone.id='linkDestinationZone';
+ const custom=document.createElement('option');custom.value='';custom.textContent='Custom address';destinationZone.append(custom);
+ for(const zone of zones){const option=document.createElement('option');option.value='#'+zone.id;option.textContent=zone.name;destinationZone.append(option);}
+ destinationLabel.append(destinationTitle,destinationZone);$('linkDestination').closest('.field').before(destinationLabel);
+ destinationZone.onchange=()=>{if(destinationZone.value)$('linkDestination').value=destinationZone.value;};
+ function syncDestination(){destinationZone.value=zones.some(z=>'#'+z.id===$('linkDestination').value)?$('linkDestination').value:'';}
+ $('linkDestination').addEventListener('input',syncDestination);
+ locationSelect.onchange=()=>{
+   const zone=zones.find(z=>z.value===locationSelect.value);
+   const id=zone?.id||(locationSelect.value==='heroDescription'?'hero':'about');
+   const preview=document.getElementById('accuratePreview')?.contentDocument;
+   preview?.querySelectorAll('[data-zone-highlight]').forEach(el=>{el.style.outline='';el.removeAttribute('data-zone-highlight');});
+   const target=preview?.getElementById(id);
+   if(target){target.dataset.zoneHighlight='true';target.style.outline='4px solid #168276';target.style.outlineOffset='-4px';target.scrollIntoView({block:'start'});}
+ };
+ let editing=null;
+ let modifiedAnchors=[];
+ function linkRoot(location){return location==='navigation'?$('siteHeader'):$(location);}
+ function findWords(location,text){
+   const root=linkRoot(location);if(!root||!text)return null;
+   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;
+   while(node=walker.nextNode()){
+     if(node.parentElement.closest('button,input,textarea,select,script,style,.arrow'))continue;
+     const index=node.textContent.toLowerCase().indexOf(text.toLowerCase());
+     if(index>=0)return {node,index,text:node.textContent.slice(index,index+text.length)};
+   }
+   return null;
+ }
+ function searchFeedback(){
+   const text=$('linkWords').value.trim();
+   $('linkMessage').textContent=!text?'':findWords($('linkLocation').value,text)?'Existing text found. Save Changes to link it.':'Text not found in this zone.';
+ }
+ $('linkWords').addEventListener('input',searchFeedback);
+ locationSelect.addEventListener('change',searchFeedback);
+ function validURL(value){
+   if(value.startsWith('#'))return value.length>1;
+   try{return ['https:','http:','mailto:','tel:'].includes(new URL(value).protocol);}catch{return false;}
+ }
+ function anchor(link){
+   const a=document.createElement('a');a.textContent=link.text;a.href=link.url;a.className='interactive-link';
+   a.dataset.hoverEffect=link.effect;
+   if(link.effect==='custom')a.classList.add('custom-hover');
+   if(link.effect==='arrow'){const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent=' →';a.append(arrow);}
+   if(link.newTab){a.target='_blank';a.rel='noopener noreferrer';}
+   return a;
+ }
+ function draw(){
+   for(const {element,attributes} of modifiedAnchors){
+     for(const [name,value] of attributes){if(value===null)element.removeAttribute(name);else element.setAttribute(name,value);}
+   }
+   modifiedAnchors=[];
+   document.querySelectorAll('[data-linked-text]').forEach(el=>{
+     const parent=el.parentNode;el.replaceWith(document.createTextNode(el.textContent));parent.normalize();
+   });
+   document.querySelectorAll('[data-added-link]').forEach(el=>el.remove());
+   for(const link of data.hyperlinks||[]){
+     if(!validURL(link.url))continue;
+     const match=findWords(link.location,link.text);if(!match)continue;
+     const existing=match.node.parentElement.closest('a');
+     if(existing){
+       if(existing.hasAttribute('data-linked-text'))continue;
+       modifiedAnchors.push({element:existing,attributes:['href','target','rel','class','data-hover-effect'].map(name=>[name,existing.getAttribute(name)])});
+       existing.href=link.url;existing.classList.add('interactive-link');existing.dataset.hoverEffect=link.effect;
+       if(link.newTab){existing.target='_blank';existing.rel='noopener noreferrer';}else{existing.removeAttribute('target');existing.removeAttribute('rel');}
+     }else{
+       const a=anchor({...link,text:match.text});a.replaceChildren(document.createTextNode(match.text));
+       a.dataset.linkedText='true';a.style.display=link.effect?.startsWith('custom')?'inline-block':'inline';
+       const after=match.node.splitText(match.index);after.deleteData(0,match.text.length);after.before(a);
+     }
+   }
+   const list=$('hyperlinkList');list.replaceChildren();
+   for(const link of data.hyperlinks||[]){
+     const row=document.createElement('div');row.className='toggle-row';
+     const title=document.createElement('span');title.textContent=link.text+' — '+link.url;title.style.overflowWrap='anywhere';
+     const actions=document.createElement('div');actions.style.display='flex';actions.style.gap='8px';
+     const edit=document.createElement('button');edit.textContent='Edit';edit.className='editor-btn';
+     edit.onclick=()=>{editing=link.id;$('linkLocation').value=link.location;$('linkWords').value=link.text;$('linkDestination').value=link.url;$('linkHover').value=link.effect;$('linkNewTab').checked=link.newTab;$('linkMessage').textContent='Editing '+link.text;syncDestination();locationSelect.onchange();};
+     const remove=document.createElement('button');remove.textContent='Remove';remove.className='editor-btn danger';
+     remove.onclick=()=>{const before=structuredClone(data);data.hyperlinks=data.hyperlinks.filter(item=>item.id!==link.id);if(!persistPhotos()){data=before;$('linkMessage').textContent='Could not save link changes.';return;}if(editing===link.id)editing=null;render();$('linkMessage').textContent='Link removed.';};
+     actions.append(edit,remove);row.append(title,actions);list.append(row);
+   }
+ }
+ $('newHyperlink').onclick=()=>{editing=null;$('linkWords').value='';$('linkDestination').value='';syncDestination();$('linkMessage').textContent='';$('linkWords').focus();};
+ $('saveHyperlink').onclick=()=>{
+   const text=$('linkWords').value.trim(),url=$('linkDestination').value.trim(),location=$('linkLocation').value;
+   if(!text||!validURL(url)){$('linkMessage').textContent='Enter link text and a valid web address, email link, phone link, or #section.';return;}
+   if(!findWords(location,text)){$('linkMessage').textContent='Text not found in this zone. Enter words already on the website.';return;}
+   if((data.hyperlinks||[]).some(l=>l.id!==editing&&l.location===location&&l.text.toLowerCase()===text.toLowerCase())){$('linkMessage').textContent='A link for these words already exists. Edit that link instead.';return;}
+   const before=structuredClone(data);
+   const item={id:editing||crypto.randomUUID(),text,url,location,effect:$('linkHover').value,newTab:$('linkNewTab').checked};
+   data.hyperlinks=(data.hyperlinks||[]).filter(l=>l.id!==item.id);data.hyperlinks.push(item);
+   if(!persistPhotos()){data=before;$('linkMessage').textContent='Could not save link changes.';return;}
+   editing=item.id;render();$('linkMessage').textContent='Hyperlink saved.';
+ };
+ const priorRender=render;render=function(){priorRender();draw();};draw();
+})();
+</script>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const section=$('interactiveEffect').closest('.editor-section');
+ const editor=document.createElement('div');
+ editor.innerHTML='<label class="field"><span>Saved custom interaction</span><select id="savedInteraction"></select></label><button type="button" class="editor-btn" id="newInteraction">New interaction</button><label class="field"><span>Interaction name</span><input id="interactionName" maxlength="80" placeholder="e.g. Green underline"></label><label class="field"><span>Custom hyperlink CSS</span><textarea id="customHyperlinkCode" rows="10" spellcheck="false"></textarea></label><button type="button" class="editor-btn" id="saveInteractionCode">Save Code</button><p id="interactionCodeStatus" role="status"></p>';
+ section.append(editor);
+ const applyWebsite=document.createElement('button');
+ applyWebsite.type='button';applyWebsite.id='applyEffectToWebsite';applyWebsite.className='editor-btn';
+ applyWebsite.textContent='Apply Effect to Website';
+ section.append(applyWebsite);
+ applyWebsite.onclick=()=>{
+   const text=$('interactiveText').value.trim(),url=$('interactiveURL').value.trim(),effect=$('interactiveEffect').value;
+   let valid=url.startsWith('#')&&url.length>1;
+   try{valid ||= ['http:','https:','mailto:','tel:'].includes(new URL(url).protocol);}catch{}
+   if(!text||!valid){$('interactionCodeStatus').textContent='Enter existing link text and a valid destination.';return;}
+   const normalize=s=>s.replace(/\s+/g,' ').trim().toLowerCase();
+   const matches=Array.from(document.querySelectorAll('#website a')).filter(a=>{
+     const copy=a.cloneNode(true);copy.querySelectorAll('.arrow').forEach(el=>el.remove());
+     return normalize(copy.textContent)===normalize(text);
+   });
+   if(!matches.length){$('interactionCodeStatus').textContent='No matching website link found. Use Hyperlinks below to link existing words first.';return;}
+   const before=structuredClone(data);
+   data.hyperlinks ||= [];
+   for(const a of matches){
+     const zone=a.closest('#siteHeader,#hero,#introText,#about,#round,#photos,#news');
+     if(!zone)continue;
+     const location=zone.id==='siteHeader'?'navigation':zone.id;
+     const existing=data.hyperlinks.find(link=>normalize(link.text)===normalize(text)&&(link.location===location||link.location==='heroDescription'&&location==='hero'||link.location==='aboutText'&&location==='about'));
+     if(existing){existing.effect=effect;existing.url=url;}
+     else if(!data.hyperlinks.some(link=>link.location===location&&normalize(link.text)===normalize(text)))data.hyperlinks.push({id:crypto.randomUUID(),text,url,location,effect,newTab:a.target==='_blank'});
+   }
+   if(!persistPhotos()){data=before;$('interactionCodeStatus').textContent='Could not save the effect. Browser storage is full or unavailable.';return;}
+   render();$('interactionCodeStatus').textContent='Effect applied to matching website links and saved.';
+ };
+ const input=$('customHyperlinkCode'),name=$('interactionName'),status=$('interactionCodeStatus'),saved=$('savedInteraction');
+ input.style.fontFamily='Consolas, monospace';input.style.minHeight='200px';
+ input.placeholder='.interactive-link:hover { color: #168276; }';
+ let editing=null;
+ const style=document.createElement('style');style.id='customHyperlinkStyles';document.head.append(style);
+ function effects(){
+   if(!Array.isArray(data.customInteractions)){
+     data.customInteractions=data.customHyperlinkCSS?.trim()?[{id:'custom',name:'Custom saved code',code:data.customHyperlinkCSS}]:[];
+   }
+   return data.customInteractions;
+ }
+ function options(select,blank){
+   const value=select.value;
+   select.replaceChildren();
+   const choices=blank?[['','New interaction']]:[['underline','Underline Sweep'],['arrow','Arrow Reveal']];
+   for(const [id,title] of choices){const option=document.createElement('option');option.value=id;option.textContent=title;select.append(option);}
+   for(const effect of effects()){const option=document.createElement('option');option.value=effect.id;option.textContent=effect.name;select.append(option);}
+   select.value=Array.from(select.options).some(o=>o.value===value)?value:(blank?'':'underline');
+ }
+ function apply(){
+   effects();
+   options(saved,true);
+   for(const id of ['interactiveEffect','linkHover'])options($(id),false);
+   saved.value=editing||'';
+   $('interactiveEffect').value=effects().some(e=>e.id===data.interactiveHover)?data.interactiveHover:data.interactiveHover==='arrow'?'arrow':'underline';
+   $('interactionPreview').dataset.hoverEffect=$('interactiveEffect').value;
+   function scopeRules(rules,selector){
+     return Array.from(rules,rule=>{
+       if(rule.selectorText){
+         const selectors=rule.selectorText.split(',').map(source=>{
+           source=source.trim();
+           if(source.includes('.interactive-link'))return source.replaceAll('.interactive-link',selector);
+           // Standalone button classes target the selected link; page layout rules do not.
+           const match=source.match(/^(?:a|button)?(?:[.#][a-zA-Z_][\w-]*)*((?::[\w-]+(?:\([^)]*\))?)*|::[\w-]+)$/);
+           if(!match||!source||source==='body'||source==='html'||source===':root')return '';
+           if(!/^(?:a(?=[.#:]|$)|button(?=[.#:]|$)|[.#])/.test(source))return '';
+           return selector+(match[1]||'');
+         }).filter(Boolean);
+         return selectors.length?selectors.join(',')+'{'+rule.style.cssText+'}':'';
+       }
+       if(rule.type===CSSRule.MEDIA_RULE||rule.type===CSSRule.SUPPORTS_RULE)return rule.cssText.slice(0,rule.cssText.indexOf('{')+1)+scopeRules(rule.cssRules,selector)+'}';
+       return rule.type===CSSRule.KEYFRAMES_RULE?rule.cssText:'';
+     }).join('\n');
+   }
+   style.textContent=effects().map(effect=>{
+     const sheet=new CSSStyleSheet();sheet.replaceSync(effect.code);
+     return scopeRules(sheet.cssRules,'.interactive-link[data-hover-effect="'+CSS.escape(effect.id)+'"]');
+   }).join('\n');
+   const preview=$('accuratePreview')?.contentDocument;
+   if(preview){
+     let copy=preview.getElementById(style.id);
+     if(!copy){copy=preview.createElement('style');copy.id=style.id;preview.head.append(copy);}
+     copy.textContent=style.textContent;
+   }
+ }
+ function loadEditor(id){
+   const effect=effects().find(e=>e.id===id);
+   editing=effect?.id||null;saved.value=editing||'';
+   name.value=effect?.name||'';input.value=effect?.code||'';status.textContent='';
+ }
+ saved.onchange=()=>{
+   loadEditor(saved.value);
+   if(!editing)return;
+   data.interactiveHover=editing;
+   apply();autoSave();
+ };
+ $('newInteraction').onclick=()=>{loadEditor('');name.focus();};
+ for(const element of [input,name])element.addEventListener('input',()=>{status.textContent='Unsaved changes.';});
+ $('saveInteractionCode').onclick=()=>{
+   const title=name.value.trim(),code=input.value.trim();
+   if(!title||!code){status.textContent='Enter an interaction name and CSS code.';return;}
+   if(effects().some(e=>e.id!==editing&&e.name.toLowerCase()===title.toLowerCase())){status.textContent='Choose a different name. This name is already in use.';return;}
+   const before=structuredClone(data);
+   const item={id:editing||'custom-'+crypto.randomUUID(),name:title,code};
+   const index=effects().findIndex(e=>e.id===item.id);
+   if(index<0)data.customInteractions.push(item);else data.customInteractions[index]=item;
+   data.interactiveHover=item.id;
+   if(!persistPhotos()){data=before;status.textContent='Could not save the interaction. Browser storage is full or unavailable.';return;}
+   editing=item.id;apply();status.textContent='"'+title+'" saved and selected in the live preview.';
+ };
+ $('interactiveEffect').addEventListener('change',event=>{
+   const previous=data.interactiveHover;data.interactiveHover=event.target.value;
+   apply();
+   if(!persistPhotos()){status.textContent='Preview updated, but the selection could not be saved.';return;}
+   status.textContent='Hover interaction selected.';
+ });
+ const previousRender=render;render=function(){previousRender();apply();};
+ $('resetWebsite').addEventListener('click',()=>{apply();loadEditor(editing);});
+ apply();loadEditor(effects()[0]?.id||'');
+})();
+</script>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const panel=document.createElement('section');panel.className='editor-section';panel.id='announcementEditor';
+ panel.innerHTML='<h3>Announcements</h3><label class="toggle-row"><span>Show announcements</span><input id="annVisible" type="checkbox"></label><label class="field"><span>Announcement text</span><textarea id="annText" rows="4"></textarea></label><div class="field-grid"><label class="field"><span>Background colour</span><input id="annBackground" type="color"></label><label class="field"><span>Text colour</span><input id="annColour" type="color"></label><label class="field"><span>Alignment</span><select id="annAlign"><option value="left">Left</option><option value="center">Centre</option><option value="right">Right</option></select></label><label class="field"><span>Text size</span><input id="annSize" type="number" min="12" max="64"></label><label class="field"><span>Vertical spacing</span><input id="annPadding" type="range" min="0" max="120"></label><label class="field"><span>Letter spacing</span><input id="annSpacing" type="range" min="0" max="8" step="0.1"></label></div><label class="toggle-row"><span>Bold text</span><input id="annBold" type="checkbox"></label><label class="toggle-row"><span>Uppercase text</span><input id="annUppercase" type="checkbox"></label><label class="field"><span>Announcement link (optional)</span><input id="annURL" type="text" placeholder="https://example.com or #round"></label><label class="toggle-row"><span>Open link in a new tab</span><input id="annNewTab" type="checkbox"></label><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button class="editor-btn" id="annSave" type="button">Save Changes</button><button class="editor-btn" id="annTheme" type="button">Use club colours</button></div><p id="annStatus" role="status"></p>';
+ $('editHeroURL').closest('.editor-section').after(panel);
+ const fields={annText:['text','value'],annVisible:['visible','checked'],annBackground:['background','value'],annColour:['colour','value'],annAlign:['align','value'],annSize:['size','number'],annPadding:['padding','number'],annSpacing:['spacing','number'],annBold:['bold','checked'],annUppercase:['uppercase','checked'],annURL:['url','value'],annNewTab:['newTab','checked']};
+ function populate(){
+   const a={...defaults.announcements,...data.announcements};
+   for(const [id,[key,kind]] of Object.entries(fields)){
+     const value=key==='background'?(a.background||data.colours.rock):key==='colour'?(a.colour||data.colours.venice):a[key];
+     $(id)[kind==='checked'?'checked':'value']=value;
+   }
+ }
+ function validLink(value){if(!value)return true;if(value.startsWith('#'))return value.length>1;try{return ['http:','https:','mailto:','tel:'].includes(new URL(value).protocol);}catch{return false;}}
+ for(const [id,[key,kind]] of Object.entries(fields)){
+   $(id).addEventListener('input',()=>{
+     const el=$(id);
+     if(kind==='number'&&(el.value===''||!el.validity.valid)){$('annStatus').textContent='Enter a value within the allowed range.';return;}
+     const value=kind==='checked'?el.checked:kind==='number'?Number(el.value):el.value;
+     if(key==='url'&&!validLink(value.trim())){$('annStatus').textContent='Enter a valid web address or #section link.';return;}
+     data.announcements={...defaults.announcements,...data.announcements,[key]:key==='url'?value.trim():value};
+     render();autoSave();$('annStatus').textContent='Announcement updated.';
+   });
+ }
+ $('annSave').onclick=()=>{
+   if(!validLink($('annURL').value.trim())||!$('annSize').validity.valid||$('annSize').value===''){$('annStatus').textContent='Correct the link or text size before saving.';return;}
+   $('annStatus').textContent=persistPhotos()?'Announcement changes saved.':'Could not save. Browser storage is full or unavailable.';
+ };
+ $('annTheme').onclick=()=>{data.announcements={...defaults.announcements,...data.announcements,background:'',colour:''};populate();render();autoSave();$('annStatus').textContent='Club colours applied.';};
+ $('resetWebsite').addEventListener('click',populate);
+ $('editRock').addEventListener('input',()=>{if(!data.announcements?.background)$('annBackground').value=data.colours.rock;});
+ $('editVenice').addEventListener('input',()=>{if(!data.announcements?.colour)$('annColour').value=data.colours.venice;});
+ populate();render();
+})();
+</script>
+<style>
+#adminLogin{width:min(420px,calc(100% - 32px));border:1px solid #cbd2d6;border-radius:8px;padding:26px;color:#15242c;background:white}
+#adminLogin::backdrop{background:rgba(5,15,20,.72)}
+#adminLogin h2{margin:0 0 20px;font-size:24px}
+#adminLoginError{color:#8b2e2e;min-height:20px;font-size:14px}
+</style>
+<dialog id="adminLogin" aria-labelledby="adminLoginTitle">
+ <form id="adminLoginForm">
+  <h2 id="adminLoginTitle">Admin login</h2>
+  <label class="field"><span>Password</span><input id="adminPassword" type="password" autocomplete="current-password" required></label>
+  <p id="adminLoginError" role="alert"></p>
+  <div style="display:flex;gap:10px"><button class="editor-btn" id="adminSignIn" type="submit">Log in</button><button class="editor-btn" id="adminLoginCancel" type="button">Cancel</button></div>
+ </form>
+</dialog>
+<script>
+(() => {
+ const dialog=document.getElementById('adminLogin');
+ const password=document.getElementById('adminPassword');
+ const error=document.getElementById('adminLoginError');
+ const submit=document.getElementById('adminSignIn');
+ const expected='fcf4c5ed19be58c183a97ba08014fec2b5afed68844b0a3db6aad941dc9ac58d';
+ document.getElementById('adminLoginForm').addEventListener('submit',async event=>{
+   event.preventDefault();submit.disabled=true;error.textContent='';
+   try{
+     const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(password.value));
+     const actual=Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,'0')).join('');
+     if(!dialog.open)return;
+     if(actual!==expected){error.textContent='Incorrect password. Please try again.';password.value='';password.focus();return;}
+     dialog.close();
+     document.getElementById('admin').hidden=false;
+     document.body.style.overflow='hidden';
+     document.getElementById('closeAdmin').focus();
+   }catch{error.textContent='Login is unavailable in this browser. Try opening this file in a current version of Edge or Chrome.';}
+   finally{submit.disabled=false;}
+ });
+ document.getElementById('adminLoginCancel').addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('close',()=>{
+   password.value='';error.textContent='';
+   if(document.getElementById('admin').hidden){document.body.style.overflow='';document.getElementById('openAdmin').focus();}
+ });
+})();
+</script>
+</body>
+</html>
