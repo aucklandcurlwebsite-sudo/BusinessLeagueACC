@@ -755,7 +755,7 @@ th,td{
 .curling-front{overflow:visible}
 .curling-card.is-flipped .curling-front{visibility:hidden;pointer-events:none}
 .curling-card.is-flipped .curling-card-photo{visibility:hidden}
-.curling-front::before{content:"";position:absolute;inset:36px 15px 20px;background:repeating-linear-gradient(to bottom,transparent 0,transparent 25px,#b5cfc7 25px,#b5cfc7 26px);pointer-events:none}
+.curling-front::before{content:none}
 .curling-front::after{content:"";position:absolute;top:12px;left:10px;width:11px;height:11px;border-radius:50%;background:#f4c5c4;box-shadow:15px 0 #f4c5c4,30px 0 #f4c5c4}
 .curling-card-photo{position:absolute;z-index:1;top:12px;left:18px;right:5px;height:254px;transform:rotate(7deg);background:#da9c49;border:6px solid #da9c49;box-shadow:0 5px 10px rgba(32,45,39,.14);overflow:hidden}
 .curling-card:nth-child(2) .curling-card-photo{transform:rotate(-5deg);border-color:#d1bc30;background:#d1bc30}
@@ -767,11 +767,50 @@ th,td{
 .curling-card-title{background:transparent;padding:0;max-width:100%;width:100%;height:190px;display:flex;flex-direction:column;justify-content:flex-start;border-radius:0}
 .curling-card-title h2{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;text-transform:uppercase;font-size:26px;line-height:1.06;letter-spacing:0;color:#183a36;margin:8px 0 12px;overflow-wrap:anywhere;max-height:145px;overflow:auto}
 .curling-card-action{align-self:flex-start;margin-top:auto;font-size:12px;color:#324b45;background:#eef0e8;border:1px solid #c3cfc7;padding:5px 10px;border-radius:3px;transform:rotate(-5deg)}
-.curling-back{background:repeating-linear-gradient(to bottom,#fbfaf6 0,#fbfaf6 27px,#d6e2dc 27px,#d6e2dc 28px);padding:24px}
+.curling-back{background:#fbfaf6;padding:24px}
 .curling-back h3{font-family:Impact,"Arial Narrow",Arial,sans-serif;text-transform:uppercase;color:#183a36}
 @media(max-width:1200px){.curling-information{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px}.curling-card-photo{left:24px;right:20px}}
 @media(max-width:600px){.curling-information{grid-template-columns:minmax(0,1fr);padding:48px 7vw;gap:38px}.curling-card{height:500px}.curling-card-title{max-width:100%}.curling-card-title h2{font-size:28px}}
 </style>
+<style>
+.blog-section{padding:56px 4vw 48px;background:#dce9e3;color:#203e35;overflow:hidden}
+.blog-section>h2{font-size:28px;line-height:1.2;text-align:center;margin:0 0 36px;letter-spacing:0;overflow-wrap:anywhere}
+.blog-book{max-width:920px;margin:auto}
+.blog-stage{width:100%;margin:auto;filter:drop-shadow(0 16px 14px #18251e30)}
+.blog-leaf{background:#fafbf8;color:#20372e;overflow:hidden;border:1px solid #cdd3cc}
+.blog-leaf.--left{background:linear-gradient(to right,#fafbf8 94%,#d6dbd3)}
+.blog-leaf.--right{background:linear-gradient(to right,#d6dbd3,#fafbf8 6%)}
+.blog-leaf-inner{height:100%;padding:28px;display:flex;flex-direction:column;gap:18px;min-width:0;box-sizing:border-box}
+.blog-leaf-inner h3{font-family:Georgia,serif;font-size:25px;font-weight:normal;line-height:1.18;margin:0;overflow-wrap:anywhere;letter-spacing:0}
+.blog-leaf-inner img{width:100%;height:58%;min-height:0;object-fit:cover;flex-shrink:1}
+.blog-meta{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.blog-reading{overflow:auto;min-height:0;flex:1;overscroll-behavior:contain;touch-action:pan-y;scrollbar-width:thin}
+.blog-reading p{font-family:Georgia,serif;font-size:16px;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 18px}
+.blog-folio{margin-top:auto;display:flex;justify-content:space-between;gap:12px;font-size:11px;border-top:1px solid #cdd3cc;padding-top:12px}
+.blog-hardcover{background:#202824!important;color:#f8faf3;border:1px solid #0d1611;box-shadow:inset 9px 0 9px #0005,inset 12px 0 0 #ffffff12}
+.blog-hardcover .blog-leaf-inner{padding:30px 28px 26px 36px}
+.blog-hardcover h3{font-size:34px;line-height:1.05;max-height:38%;overflow:auto;flex-shrink:0}
+.blog-hardcover img{height:38%;margin-top:auto;filter:saturate(.7)}
+.blog-hardcover .blog-meta{text-transform:uppercase;font-size:11px}
+.blog-hardcover .blog-folio{border-color:#ffffff40}
+.blog-edition{font-size:13px;line-height:1.5;overflow-wrap:anywhere;max-height:20%;overflow:auto;flex-shrink:0}
+.blog-stage:before{content:'';position:absolute;inset:4px -5px -5px 50%;background:#e5e8df;border:1px solid #bcc2b7;box-shadow:2px 2px 0 #f8faf3,4px 4px 0 #a8b2a5;pointer-events:none}
+.blog-stage.is-open:before{left:0}
+.blog-stage.is-back:before{left:0;right:50%}
+.blog-book .stf__parent{min-width:0!important}
+.blog-stage:not(.stf__parent) .blog-leaf{position:relative;max-width:420px;min-height:500px;margin:0 auto 20px}
+.blog-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:24px;min-height:44px}
+.blog-controls button{width:44px;height:44px;border:1px solid #496b5f;border-radius:4px;background:#fff;color:#203e35;font-size:24px}
+.blog-controls button:disabled{opacity:.35;cursor:default}
+.blog-controls button:focus-visible{outline:3px solid #168276;outline-offset:3px}
+.blog-counter{min-width:100px;text-align:center;font-size:14px}
+.blog-empty{padding:48px 24px;background:#fff;text-align:center}
+.blog-admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.blog-post-row{display:flex;gap:12px;align-items:center;border-top:1px solid #b7c7c1;padding:12px 0;min-width:0}
+.blog-post-row span{flex:1;overflow-wrap:anywhere;min-width:0}
+@media(max-width:650px){.blog-section{padding:36px 16px}.blog-section>h2{font-size:26px}.blog-leaf-inner{padding:22px;gap:14px}.blog-hardcover .blog-leaf-inner{padding:24px 22px 24px 30px}.blog-hardcover h3{font-size:30px}.blog-stage:before{left:0}}
+</style>
+<script src="assets/page-flip.browser.js"></script>
 </head>
 
 <body>
@@ -986,6 +1025,7 @@ th,td{
 </section>
 
 
+<section id="blog" class="blog-section" aria-label="Club journal"></section>
 <section class="news" id="news">
 
   <div class="eyebrow">
@@ -1123,8 +1163,8 @@ th,td{
 
   <div class="admin-top-actions">
 
-    <button id="resetWebsite">
-      Reset
+    <button id="undoWebsite" type="button" disabled>
+      Undo
     </button>
 
     <button id="closeAdmin">
@@ -1730,6 +1770,7 @@ function loadData(){
 
 
 function autoSave(){
+  window.queueUndoCheckpoint?.();
 
   document.getElementById(
     "saveStatus"
@@ -2114,6 +2155,7 @@ async function uploadPhotos(input, addToGallery){
   status.textContent = (added ? added + " photo(s) saved" + (addToGallery ? " and added to the gallery." : ".") : "") + (errors.length ? " " + errors.join(" ") : "");
 }
 function persistPhotos(){
+  window.queueUndoCheckpoint?.();
   clearTimeout(saveTimer);
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -2453,37 +2495,6 @@ interactiveURL.addEventListener(
    RESET
 ========================= */
 
-resetWebsite.addEventListener(
-  "click",
-  ()=>{
-
-    const confirmed =
-      confirm(
-        "Reset the website back to its default design?"
-      );
-
-
-    if(!confirmed)
-      return;
-
-
-    localStorage.removeItem(
-      STORAGE_KEY
-    );
-
-
-    data =
-      structuredClone(defaults);
-
-
-    populateEditor();
-
-    render();
-
-    autoSave();
-
-  }
-);
 
 
 /* =========================
@@ -2507,7 +2518,7 @@ updateInteraction();
  <div class="rr-layout"><div class="rr-panel">
  <label for="rr-title">Tournament name</label><input id="rr-title" maxlength="100">
  <h2>Teams</h2><div id="rr-teams"></div><button id="rr-add">+ Add team</button>
- <div class="rr-actions"><button id="rr-generate">Generate fixtures</button><button id="rr-reset">Reset fixtures</button></div>
+ <div class="rr-actions"><button id="rr-generate">Generate fixtures</button></div>
  <p class="rr-muted" id="rr-hint"></p><h2>Match scores</h2><div id="rr-matches"></div>
  </div><aside class="rr-panel rr-preview"><h2>Live standings</h2><p class="rr-muted">Win: 3 points · Draw: 1 point · Loss: 0 points</p><div id="rr-preview"></div></aside></div>
 </section>
@@ -2521,7 +2532,7 @@ updateInteraction();
  const $=id=>document.getElementById(id);
  const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const name=id=>state.teams.find(t=>t.id===id)?.name||'Bye';
- function save(){try{localStorage.setItem(key,JSON.stringify(state));$('rr-status').textContent='All changes saved in this browser';}catch{$('rr-status').textContent='Unable to save. Keep this page open; browser storage may be full or disabled.';}renderPublic();}
+ function save(){window.queueUndoCheckpoint?.();try{localStorage.setItem(key,JSON.stringify(state));$('rr-status').textContent='All changes saved in this browser';}catch{$('rr-status').textContent='Unable to save. Keep this page open; browser storage may be full or disabled.';}renderPublic();}
  // Circle scheduling keeps one slot fixed and rotates the others between rounds.
  function schedule(ids){const ring=[...ids];if(ring.length%2)ring.push(null);const rounds=[];for(let r=0;r<ring.length-1;r++){const matches=[];for(let i=0;i<ring.length/2;i++)matches.push({a:ring[i],b:ring[ring.length-1-i],sa:null,sb:null});rounds.push(matches);ring.splice(1,0,ring.pop());}return rounds;}
  function standings(){const rows=state.teams.map(t=>({...t,p:0,w:0,d:0,l:0,pts:0,diff:0}));const map=new Map(rows.map(t=>[t.id,t]));state.rounds.flat().forEach(m=>{if(!m.a||!m.b||m.sa===null||m.sb===null)return;const a=map.get(m.a),b=map.get(m.b);a.p++;b.p++;a.diff+=m.sa-m.sb;b.diff+=m.sb-m.sa;if(m.sa===m.sb){a.d++;b.d++;a.pts++;b.pts++;}else{const winner=m.sa>m.sb?a:b,loser=m.sa>m.sb?b:a;winner.w++;winner.pts+=3;loser.l++;}});return rows.sort((a,b)=>b.pts-a.pts||b.diff-a.diff||a.name.localeCompare(b.name));}
@@ -2529,18 +2540,17 @@ updateInteraction();
  document.querySelector('.editor').appendChild($('rr-admin'));
  const publicSection=document.querySelector('#round');publicSection.innerHTML='<div id="rr-public"></div>';
  function renderPublic(){$('rr-preview').innerHTML=table();$('rr-public').innerHTML='<h2>'+escape(state.title)+'</h2>'+table()+state.rounds.map((round,r)=>'<h3>Round '+(r+1)+'</h3>'+round.map(m=>'<p>'+(m.a&&m.b?escape(name(m.a))+' <strong>'+(m.sa===null?'—':m.sa)+' : '+(m.sb===null?'—':m.sb)+'</strong> '+escape(name(m.b)):escape(name(m.a||m.b))+' — Bye')+'</p>').join('')).join('');}
- function renderTeams(){$('rr-teams').innerHTML=state.teams.map((t,i)=>'<div class="rr-team"><input aria-label="Team '+(i+1)+' name" maxlength="80" data-team="'+t.id+'" value="'+escape(t.name)+'"><button data-remove="'+t.id+'" aria-label="Remove '+escape(t.name)+'" title="Remove team" '+(state.rounds.length?'disabled':'')+'>×</button></div>').join('');$('rr-add').disabled=state.rounds.length>0;$('rr-generate').disabled=state.rounds.length>0;$('rr-reset').disabled=!state.rounds.length;$('rr-hint').textContent=state.rounds.length?'Fixtures created. Reset fixtures to change the team roster. Team names remain editable.':'Each team plays every opponent once. An odd number of teams receives one bye each.';}
+ function renderTeams(){$('rr-teams').innerHTML=state.teams.map((t,i)=>'<div class="rr-team"><input aria-label="Team '+(i+1)+' name" maxlength="80" data-team="'+t.id+'" value="'+escape(t.name)+'"><button data-remove="'+t.id+'" aria-label="Remove '+escape(t.name)+'" title="Remove team" '+(state.rounds.length?'disabled':'')+'>×</button></div>').join('');$('rr-add').disabled=state.rounds.length>0;$('rr-generate').disabled=state.rounds.length>0;$('rr-hint').textContent=state.rounds.length?'Fixtures created. Team names remain editable.':'Each team plays every opponent once. An odd number of teams receives one bye each.';}
  function renderMatches(){$('rr-matches').innerHTML=state.rounds.length?state.rounds.map((round,r)=>'<h3>Round '+(r+1)+'</h3>'+round.map((m,i)=>m.a&&m.b?'<div class="rr-match"><span>'+escape(name(m.a))+'</span><input type="number" min="0" max="99999" step="1" aria-label="Round '+(r+1)+' '+escape(name(m.a))+' score" data-r="'+r+'" data-i="'+i+'" data-side="sa" value="'+(m.sa??'')+'"><span>:</span><input type="number" min="0" max="99999" step="1" aria-label="Round '+(r+1)+' '+escape(name(m.b))+' score" data-r="'+r+'" data-i="'+i+'" data-side="sb" value="'+(m.sb??'')+'"><span>'+escape(name(m.b))+'</span></div>':'<p>'+escape(name(m.a||m.b))+' — Bye</p>').join('')).join(''):'<p class="rr-muted">No fixtures yet.</p>';}
  $('rr-title').value=state.title;$('rr-title').oninput=e=>{state.title=e.target.value;save();};
  $('rr-add').onclick=()=>{state.teams.push({id:crypto.randomUUID(),name:'Team '+(state.teams.length+1)});renderTeams();save();};
  $('rr-teams').oninput=e=>{if(!e.target.dataset.team)return;state.teams.find(t=>t.id===e.target.dataset.team).name=e.target.value;renderMatches();save();};
  $('rr-teams').onclick=e=>{const id=e.target.dataset.remove;if(!id||state.rounds.length)return;state.teams=state.teams.filter(t=>t.id!==id);renderTeams();save();};
  $('rr-generate').onclick=()=>{const names=state.teams.map(t=>t.name.trim().toLowerCase());if(names.length<2||names.some(n=>!n)||new Set(names).size!==names.length){alert('Add at least two teams with unique, non-empty names.');return;}state.rounds=schedule(state.teams.map(t=>t.id));renderTeams();renderMatches();save();};
- $('rr-reset').onclick=()=>{if(!confirm('Delete all fixtures and scores? Team names will be kept.'))return;state.rounds=[];renderTeams();renderMatches();save();};
  $('rr-matches').oninput=e=>{const el=e.target;if(!el.dataset.side)return;if(!el.validity.valid){el.reportValidity();return;}state.rounds[Number(el.dataset.r)][Number(el.dataset.i)][el.dataset.side]=el.value===''?null:Number(el.value);save();};
  renderTeams();renderMatches();renderPublic();if(storageError)$('rr-status').textContent='Saved data could not be loaded.';
  const liveRound=document.createElement('div');liveRound.className='preview-section';liveRound.innerHTML='<h2>Round Robin</h2>';document.querySelector('.preview-window').appendChild(liveRound);liveRound.appendChild(document.querySelector('#rr-admin .rr-preview'));
- window.rrTest={schedule,standings,getState:()=>state};
+ window.rrTest={schedule,standings,getState:()=>state,restore:value=>{state=structuredClone(value);$('rr-title').value=state.title;renderTeams();renderMatches();renderPublic();}};
 })();
 </script>
 <style>
@@ -2628,10 +2638,11 @@ updateInteraction();
      button.onclick=()=>{
        let p=(data.photoLibrary||[]).find(p=>p.src===src);
        if(!p){data.photoLibrary||=[];p={id:crypto.randomUUID(),src,name:'Gallery photo '+(i+1)};data.photoLibrary.push(p);}
-       p.crop||={x:50,y:50,zoom:100};galleryId=p.id;selectedPhoto=p.id;$('placeTarget').value='gallery';sync();controls.scrollIntoView({block:'center'});
+       p.crop||={x:50,y:50,zoom:100};galleryId=p.id;selectedPhoto=p.id;$('placeTarget').value='gallery';sync();window.openAdminSection?.(controls);controls.scrollIntoView({block:'center'});
      };fanList.append(button);
    });
  }
+ document.addEventListener('websiteRestored',sync);
  const baseRender=render;render=function(){baseRender();paint();};paint();sync();
  window.addEventListener('resize',paint);
  const placementResize=new ResizeObserver(paint);
@@ -2665,9 +2676,12 @@ updateInteraction();
    frame.style.transform='scale('+scale+')';
  }
  function refresh(){
+   if(window.previewTextBusy)return;
    const scroll=frame.contentWindow.scrollY;
+   const liveBook=doc.getElementById('blog');
    doc.documentElement.style.cssText=document.documentElement.style.cssText;
    doc.body.replaceChildren(document.getElementById('website').cloneNode(true));
+   if(liveBook)doc.getElementById('blog')?.replaceWith(liveBook);
    const areas={hero:'#hero',about:'#aboutImage',gallery:'#photoFan'};
    const bridges={hero:document.querySelector('.preview-hero'),about:document.getElementById('previewAboutImage'),gallery:document.querySelector('.preview-fan-area')};
    for(const [target,selector] of Object.entries(areas)){
@@ -2686,11 +2700,17 @@ updateInteraction();
      card.addEventListener('drop',event=>{event.preventDefault();window.placeWebsiteImage(event.dataTransfer.getData('text/plain'),card.id);});
    });
    doc.getElementById('photoFan').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openGallery();}});
-   doc.getElementById('openAdmin').addEventListener('click',()=>document.getElementById('imagePlacement').scrollIntoView({block:'center'}));
+   doc.getElementById('openAdmin').addEventListener('click',()=>{const section=document.getElementById('imagePlacement');window.openAdminSection?.(section);section.scrollIntoView({block:'center'});});
+   window.installPreviewTextEditing?.(doc);
+   window.installBlogBook?.(doc);
    fit();frame.contentWindow.scrollTo(0,scroll);
  }
  let pending;
- const observer=new MutationObserver(()=>{clearTimeout(pending);pending=setTimeout(refresh,40);});
+ window.refreshWebsitePreview=refresh;
+ const observer=new MutationObserver(records=>{
+   if(records.every(record=>(record.target.nodeType===1?record.target:record.target.parentElement)?.closest('#blog')))return;
+   clearTimeout(pending);pending=setTimeout(refresh,40);
+ });
  observer.observe(document.getElementById('website'),{subtree:true,childList:true,attributes:true,characterData:true});
  new ResizeObserver(fit).observe(container);
  window.addEventListener('resize',fit);
@@ -2818,6 +2838,12 @@ updateInteraction();
    editing=item.id;render();$('linkMessage').textContent='Hyperlink saved.';
  };
  const priorRender=render;render=function(){priorRender();draw();};draw();
+ document.addEventListener('websiteRestored',()=>{
+   const link=(data.hyperlinks||[]).find(item=>item.id===editing);
+   if(!link){editing=null;$('linkWords').value='';$('linkDestination').value='';}
+   else{$('linkLocation').value=link.location;$('linkWords').value=link.text;$('linkDestination').value=link.url;$('linkHover').value=link.effect;$('linkNewTab').checked=link.newTab;}
+   syncDestination();
+ });
 })();
 </script>
 <script>
@@ -2942,7 +2968,7 @@ updateInteraction();
    status.textContent='Hover interaction selected.';
  });
  const previousRender=render;render=function(){previousRender();apply();};
- $('resetWebsite').addEventListener('click',()=>{apply();loadEditor(editing);});
+ document.addEventListener('websiteRestored',()=>{apply();loadEditor(editing);});
  apply();loadEditor(effects()[0]?.id||'');
 })();
 </script>
@@ -2976,7 +3002,7 @@ updateInteraction();
    $('annStatus').textContent=persistPhotos()?'Announcement changes saved.':'Could not save. Browser storage is full or unavailable.';
  };
  $('annTheme').onclick=()=>{data.announcements={...defaults.announcements,...data.announcements,background:'',colour:''};populate();render();autoSave();$('annStatus').textContent='Club colours applied.';};
- $('resetWebsite').addEventListener('click',populate);
+ document.addEventListener('websiteRestored',populate);
  $('editRock').addEventListener('input',()=>{if(!data.announcements?.background)$('annBackground').value=data.colours.rock;});
  $('editVenice').addEventListener('input',()=>{if(!data.announcements?.colour)$('annColour').value=data.colours.venice;});
  populate();render();
@@ -3124,7 +3150,7 @@ updateInteraction();
    }
  }
  const prior=render;render=function(){paint();prior();};
- document.getElementById('resetWebsite').addEventListener('click',populate);
+ document.addEventListener('websiteRestored',populate);
  populate();render();
 })();
 </script>
@@ -3147,12 +3173,13 @@ updateInteraction();
    ['round','Round Robin','#round','rock'],
    ['photos','Photo gallery','#photos','merino'],
    ['news','News','#news','venice'],
+   ['blog','Blog flip book','#blog','#dce9e3'],
    ['cards','Card section','.curling-information','#f4c5c4'],
    ['cardFront','Card fronts','.curling-front','#fbfaf6'],
    ['cardBack','Card backs','.curling-back','#fbfaf6']
  ];
  const tools=document.createElement('div');tools.className='preview-background-tools';
- tools.innerHTML='<select id="backgroundZone" aria-label="Background zone"></select><input type="color" id="backgroundColour" aria-label="Background colour"><button type="button" class="editor-btn" id="saveBackground">Save Changes</button><button type="button" class="editor-btn" id="resetBackground">Default</button><p id="backgroundStatus" role="status"></p>';
+ tools.innerHTML='<select id="backgroundZone" aria-label="Background zone"></select><input type="color" id="backgroundColour" aria-label="Background colour"><button type="button" class="editor-btn" id="saveBackground">Save Changes</button><p id="backgroundStatus" role="status"></p>';
  document.querySelector('.preview-label').after(tools);
  const select=document.getElementById('backgroundZone'),colour=document.getElementById('backgroundColour'),status=document.getElementById('backgroundStatus');
  for(const [id,name] of zones){const option=document.createElement('option');option.value=id;option.textContent=name;select.append(option);}
@@ -3162,7 +3189,7 @@ updateInteraction();
      const value=data.zoneBackgrounds?.[id];if(!/^#[0-9a-f]{6}$/i.test(value||''))return '';
      let rule=selector+'{background-color:'+value+'!important;}';
      if(id==='hero'&&!data.placements?.hero)rule+='#hero{background-image:none!important;}';
-     if(id==='cardBack')rule+='.curling-back{background-image:repeating-linear-gradient(to bottom,'+value+' 0,'+value+' 27px,#d6e2dc 27px,#d6e2dc 28px)!important;}';
+     if(id==='cardBack')rule+='.curling-back{background-image:none!important;}';
      return rule;
    }).join('\n');
    const doc=document.getElementById('accuratePreview')?.contentDocument;
@@ -3183,10 +3210,333 @@ updateInteraction();
    paint();autoSave();status.textContent='Background updated.';
  };
  document.getElementById('saveBackground').onclick=()=>{status.textContent=persistPhotos()?'Background colours saved.':'Could not save. Browser storage is full or unavailable.';};
- document.getElementById('resetBackground').onclick=()=>{if(data.zoneBackgrounds)delete data.zoneBackgrounds[select.value];paint();sync();autoSave();status.textContent='Default background restored.';};
  const previous=render;render=function(){previous();paint();sync();};
- document.getElementById('resetWebsite').addEventListener('click',()=>{paint();sync();});
+ document.addEventListener('websiteRestored',()=>{paint();sync();});
  paint();sync();
+})();
+</script>
+<script>
+(() => {
+ const website=document.getElementById('website');
+ const sections=[['hero','Landing page'],['introText','Announcements'],['about','About and photo cards'],['round','Round robin'],['photos','Photo fan gallery'],['news','News'],['blog','Blog flip book']];
+ const panel=document.createElement('section');panel.className='editor-section';
+ panel.innerHTML='<h3>Section order</h3><div id="sectionOrderList"></div><p id="sectionOrderStatus" role="status"></p>';
+ document.querySelector('.editor').prepend(panel);
+ function order(){return [...new Set([...(data.sectionOrder||[]),...sections.map(([id])=>id)])].filter(id=>sections.some(([key])=>key===id));}
+ function arrange(){
+   const ids=order();
+   if(ids.some((id,index)=>website.querySelectorAll(':scope > #hero,:scope > #introText,:scope > #about,:scope > #round,:scope > #photos,:scope > #news,:scope > #blog')[index]?.id!==id))ids.forEach(id=>website.append(document.getElementById(id)));
+   const list=document.getElementById('sectionOrderList');list.replaceChildren();
+   ids.forEach((id,index)=>{
+     const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px;margin:8px 0';
+     const label=document.createElement('span');label.textContent=sections.find(([key])=>key===id)[1];label.style.flex='1';row.append(label);
+     for(const [delta,symbol,name] of [[-1,'\u2191','Move up'],[1,'\u2193','Move down']]){
+       const button=document.createElement('button');button.className='editor-btn';button.textContent=symbol;button.title=name;button.setAttribute('aria-label',name+' '+label.textContent);button.disabled=index+delta<0||index+delta>=ids.length;
+       button.onclick=()=>{[ids[index],ids[index+delta]]=[ids[index+delta],ids[index]];data.sectionOrder=ids;arrange();document.getElementById('sectionOrderStatus').textContent=persistPhotos()?'Section order saved.':'Could not save section order.';};row.append(button);
+     }
+     list.append(row);
+   });
+ }
+ const toolbar=document.createElement('div');toolbar.style.cssText='display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 0';
+ toolbar.innerHTML='<label><input type="checkbox" id="previewEditText"> Edit text</label><button class="editor-btn" id="savePreviewText">Save text changes</button><span id="previewTextStatus" role="status"></span>';
+ document.querySelector('.preview-label').after(toolbar);
+ const toggle=document.getElementById('previewEditText'),status=document.getElementById('previewTextStatus');
+ const fields=[['[data-club-name]','clubName'],['#heroEyebrow','hero.eyebrow'],['#heroHeading','hero.heading'],['#heroDescription','hero.description'],['#heroButtonText','hero.button'],['#introText','announcements.text'],['#aboutHeading','about.heading'],['#aboutText','about.text'],['#galleryHeading','gallery.heading']];
+ const staticSelectors=['#news .eyebrow','#news h2','#news h3','#news p','#photos .photo-copy > p','#about .about-copy > .eyebrow','#photos .photo-copy > .eyebrow'];
+ const originalText={};staticSelectors.forEach(selector=>website.querySelectorAll(selector).forEach((element,index)=>{originalText[selector+'|'+index]=element.textContent;}));
+ function write(path,value){const parts=path.split('.');let target=data;parts.slice(0,-1).forEach(key=>{target[key]||={};target=target[key];});target[parts.at(-1)]=value;}
+ function staticText(){
+   staticSelectors.forEach(selector=>website.querySelectorAll(selector).forEach((element,index)=>{
+     const value=data.previewText?.[selector+'|'+index]??originalText[selector+'|'+index];if(typeof value==='string'&&element.textContent!==value)element.textContent=value;
+   }));
+ }
+ let dirty=false;
+ function commit(){
+   window.previewTextBusy=false;
+   if(dirty){dirty=false;populateEditor();document.getElementById('annText').value=data.announcements.text;render();status.textContent=persistPhotos()?'Text changes saved.':'Could not save. Browser storage is full or unavailable.';}
+   window.refreshWebsitePreview();
+ }
+ window.installPreviewTextEditing=doc=>{
+   if(!toggle.checked)return;
+   if(!doc.getElementById('textEditingStyle')){const style=doc.createElement('style');style.id='textEditingStyle';style.textContent='[contenteditable="plaintext-only"]{cursor:text;white-space:pre-wrap;overflow-wrap:anywhere}[contenteditable="plaintext-only"]:focus{outline:2px solid #168276;outline-offset:4px}';doc.head.append(style);}
+   function bind(element,save){
+     if(!element)return;
+     element.contentEditable='plaintext-only';element.spellcheck=true;
+     element.addEventListener('focus',()=>{window.previewTextBusy=true;});
+     element.addEventListener('input',()=>{save(element.innerText);dirty=true;status.textContent='Unsaved text changes';});
+     element.addEventListener('blur',()=>setTimeout(()=>{if(!doc.activeElement?.isContentEditable)commit();},0));
+     element.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();});
+     element.addEventListener('keydown',event=>{event.stopPropagation();if(event.key==='Escape'){event.preventDefault();element.blur();}});
+   }
+   fields.forEach(([selector,path])=>doc.querySelectorAll(selector).forEach(element=>bind(element,value=>write(path,value))));
+   staticSelectors.forEach(selector=>doc.querySelectorAll(selector).forEach((element,index)=>bind(element,value=>{data.previewText||={};data.previewText[selector+'|'+index]=value;})));
+   doc.querySelectorAll('.curling-card').forEach(card=>{
+     const title=card.querySelector('h2'),lines=[...card.querySelectorAll('li')].map(li=>li.textContent);
+     function update(key,value){data.curlingInformation||={};const item=data.curlingInformation[card.id]||{id:card.id,title:title.textContent,lines:[...lines]};item[key]=value;data.curlingInformation[card.id]=item;document.getElementById(card.id+'-'+key).value=key==='lines'?value.join('\n'):value;}
+     card.querySelectorAll('h2,h3').forEach(element=>bind(element,value=>update('title',value)));
+     card.querySelectorAll('li').forEach((element,index)=>bind(element,value=>{const values=[...(data.curlingInformation?.[card.id]?.lines||lines)];values[index]=value;update('lines',values);}));
+   });
+ };
+ toggle.onchange=commit;
+ document.getElementById('savePreviewText').onclick=()=>{commit();status.textContent=persistPhotos()?'Text changes saved.':'Could not save. Browser storage is full or unavailable.';};
+ const previous=render;render=function(){staticText();previous();arrange();};
+ render();window.refreshWebsitePreview();
+})();
+</script>
+<script>
+(() => {
+ const pairs=[];
+ function normalizeHex(value){
+   const hex=value.trim().replace(/^#/,'');
+   if(/^[0-9a-f]{3}$/i.test(hex))return '#'+[...hex].map(char=>char+char).join('').toUpperCase();
+   return /^[0-9a-f]{6}$/i.test(hex)?'#'+hex.toUpperCase():null;
+ }
+ function sync(){for(const [picker,input] of pairs)if(document.activeElement!==input)input.value=picker.value.toUpperCase();}
+ document.querySelectorAll('input[type="color"]').forEach(picker=>{
+   const group=document.createElement('span');group.style.cssText='display:flex;align-items:center;gap:8px;min-width:0;flex-wrap:wrap';
+   picker.before(group);group.append(picker);
+   const input=document.createElement('input');input.type='text';input.id=picker.id+'Hex';input.placeholder='#FFFFFF';input.maxLength=7;input.spellcheck=false;input.autocomplete='off';
+   input.setAttribute('aria-label',(picker.getAttribute('aria-label')||picker.closest('label')?.querySelector('span')?.textContent||'Colour')+' hex code');
+   input.title='Hex colour code, for example #16587B';input.style.cssText='width:100px;min-width:90px;max-width:100%;font-family:monospace;letter-spacing:0';
+   group.append(input);pairs.push([picker,input]);
+   function apply(){
+     const value=normalizeHex(input.value);
+     input.setCustomValidity(value?'':'Enter a 3- or 6-digit hex colour, such as #16587B.');
+     input.setAttribute('aria-invalid',String(!value));
+     if(value){picker.value=value;picker.dispatchEvent(new Event('input',{bubbles:true}));}
+     return value;
+   }
+   input.addEventListener('input',apply);
+   input.addEventListener('blur',()=>{const value=apply();if(value)input.value=value;else input.reportValidity();});
+   input.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();const value=apply();if(value){input.value=value;input.blur();}else input.reportValidity();}});
+ });
+ // Existing controls also update colours programmatically when a zone or preset changes.
+ for(const event of ['input','change','click'])document.addEventListener(event,()=>queueMicrotask(sync));
+ const previous=render;render=function(){previous();sync();};
+ sync();
+})();
+</script>
+<script>
+(() => {
+ const $=id=>document.getElementById(id);
+ const panel=document.createElement('section');panel.className='editor-section';panel.id='blogEditor';
+ panel.innerHTML='<h3>Blog flip book</h3><label class="field"><span>Book title</span><input id="blogBookTitle" maxlength="120"></label><label class="toggle-row"><span>Show blog on website</span><input id="blogVisible" type="checkbox"></label><hr><label class="field"><span>Post title</span><input id="blogTitle" maxlength="200"></label><div class="field-grid"><label class="field"><span>Author</span><input id="blogAuthor" maxlength="100"></label><label class="field"><span>Post date</span><input id="blogDate" type="date"></label></div><label class="field"><span>Cover photo</span><select id="blogPhoto"></select></label><label class="field"><span>Post text</span><textarea id="blogBody" rows="12" style="min-height:240px"></textarea></label><div class="blog-admin-actions"><button type="button" class="editor-btn" id="publishBlog">Publish post</button><button type="button" class="editor-btn" id="saveBlogDraft">Save draft</button><button type="button" class="editor-btn" id="newBlogPost">New post</button></div><p id="blogStatus" role="status"></p><h4>Published posts</h4><div id="blogPostList"></div>';
+ document.querySelector('.editor').append(panel);
+ const status=$('blogStatus');
+ const uploadLabel=document.createElement('label');uploadLabel.className='field';
+ const uploadTitle=document.createElement('span');uploadTitle.textContent='Upload cover photo';
+ const upload=document.createElement('input');upload.type='file';upload.accept='image/*';upload.id='blogPhotoUpload';uploadLabel.append(uploadTitle,upload);$('blogPhoto').closest('label').after(uploadLabel);
+ upload.onchange=async()=>{
+   if(!upload.files.length)return;
+   collect();const before=new Set((data.photoLibrary||[]).map(photo=>photo.id));status.textContent='Uploading cover photo...';
+   await uploadPhotos(upload,false);
+   const added=(data.photoLibrary||[]).find(photo=>!before.has(photo.id));
+   if(added){data.blogDraft={...draft(),photoId:added.id};photoOptions();saved('Cover photo uploaded and selected.');}
+   else status.textContent=$('photoStatus').textContent||'Photo could not be uploaded.';
+ };
+ function posts(){return Array.isArray(data.blogPosts)?data.blogPosts:[];}
+ function dateToday(){const date=new Date();return [date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');}
+ function blank(){return {id:null,title:'',author:'',date:dateToday(),photoId:'',body:''};}
+ function draft(){return data.blogDraft||blank();}
+ function photoOptions(){
+   const select=$('blogPhoto'),selected=draft().photoId||'';select.replaceChildren();
+   const option=document.createElement('option');option.value='';option.textContent='Club photo';select.append(option);
+   for(const photo of data.photoLibrary||[]){const option=document.createElement('option');option.value=photo.id;option.textContent=photo.name;select.append(option);}
+   if(selected&&![...select.options].some(option=>option.value===selected)){const option=document.createElement('option');option.value=selected;option.textContent='Photo unavailable (using club photo)';select.append(option);}
+   select.value=selected;
+ }
+ function populate(){
+   const item=draft();for(const [id,key] of [['blogTitle','title'],['blogAuthor','author'],['blogDate','date'],['blogBody','body']])$(id).value=item[key]||'';
+   $('blogBookTitle').value=data.blogSettings?.title??'Club journal';$('blogVisible').checked=data.blogSettings?.visible!==false;
+   $('publishBlog').textContent=item.id?'Save post changes':'Publish post';photoOptions();
+ }
+ function collect(){data.blogDraft={...draft(),title:$('blogTitle').value,author:$('blogAuthor').value,date:$('blogDate').value,photoId:$('blogPhoto').value,body:$('blogBody').value};return data.blogDraft;}
+ function saved(message){status.textContent=persistPhotos()?message:'Could not save. Browser storage is full or unavailable.';}
+ for(const id of ['blogTitle','blogAuthor','blogDate','blogPhoto','blogBody'])$(id).addEventListener('input',()=>{collect();autoSave();status.textContent='Draft updated.';});
+ for(const id of ['blogBookTitle','blogVisible'])$(id).addEventListener('input',()=>{data.blogSettings={title:$('blogBookTitle').value,visible:$('blogVisible').checked};render();autoSave();});
+ $('saveBlogDraft').onclick=()=>{collect();saved('Draft saved.');};
+ $('newBlogPost').onclick=()=>{if((draft().title||draft().body)&&!confirm('Start a new post? This replaces the current editing draft. Published posts are kept.'))return;data.blogDraft=blank();populate();saved('New draft ready.');};
+ function publishPost(list,item){
+   const existing=list.find(post=>post.id===item.id);
+   const post={...item,id:existing?.id||crypto.randomUUID(),createdAt:existing?.createdAt||Date.now()};
+   return existing?list.map(row=>row.id===post.id?post:row):[post,...list];
+ }
+ $('publishBlog').onclick=()=>{
+   const item=collect();
+   if(!item.title.trim()||!item.body.trim()){status.textContent='Add a title and post text before publishing.';(!item.title.trim()?$('blogTitle'):$('blogBody')).focus();return;}
+   const oldPosts=data.blogPosts,oldDraft=data.blogDraft;
+   data.blogPosts=publishPost(posts(),{...item,title:item.title.trim(),date:item.date||dateToday()});data.blogDraft=blank();
+   if(!persistPhotos()){data.blogPosts=oldPosts;data.blogDraft=oldDraft;status.textContent='Could not publish. Browser storage is full or unavailable. Your draft is still here.';return;}
+   populate();render();status.textContent=item.id?'Post changes saved.':'Post published at the front of the book.';
+ };
+ function listPosts(){
+   const list=$('blogPostList');list.replaceChildren();
+   if(!posts().length){list.textContent='No published posts yet.';return;}
+   for(const post of posts()){
+     const row=document.createElement('div');row.className='blog-post-row';const text=document.createElement('span');text.textContent=post.title;row.append(text);
+     const edit=document.createElement('button');edit.className='editor-btn';edit.textContent='Edit';edit.onclick=()=>{if((draft().title||draft().body)&&!confirm('Replace the current editing draft with this post?'))return;data.blogDraft={...post};populate();saved('Post ready to edit.');$('blogTitle').focus();};
+     const remove=document.createElement('button');remove.className='editor-btn';remove.textContent='Delete';remove.onclick=()=>{if(!confirm('Delete "'+post.title+'"?'))return;const previous=data.blogPosts,previousDraft=data.blogDraft;data.blogPosts=posts().filter(item=>item.id!==post.id);if(draft().id===post.id)data.blogDraft=blank();if(!persistPhotos()){data.blogPosts=previous;data.blogDraft=previousDraft;status.textContent='Could not save deletion.';return;}populate();render();status.textContent='Post deleted.';};
+     row.append(edit,remove);list.append(row);
+   }
+ }
+ function element(doc,tag,className,text){const node=doc.createElement(tag);node.className=className||'';if(text!==undefined)node.textContent=text;return node;}
+ const bookInstances=new WeakMap();
+ window.installBlogBook=doc=>{
+   const root=doc.getElementById('blog');if(!root)return;
+   const items=posts(),title=data.blogSettings?.title??'Club journal';
+   const signature=JSON.stringify([items,data.blogSettings,data.clubName,items.map(post=>(data.photoLibrary||[]).find(photo=>photo.id===post.photoId))]);
+   const existing=bookInstances.get(doc);
+   if(existing?.root===root&&existing.signature===signature){existing.engine?.update();return;}
+   if(existing){
+     existing.resize?.disconnect();
+     if(existing.engine){const renderer=existing.engine.getRender();renderer.disposed=true;doc.defaultView.cancelAnimationFrame(renderer.frameId);existing.engine.destroy();}
+   }
+   const record={root,signature,engine:null};bookInstances.set(doc,record);
+   root.hidden=data.blogSettings?.visible===false;root.replaceChildren();
+   root.append(element(doc,'h2','',title));
+   if(!items.length){root.append(element(doc,'p','blog-empty','No posts yet.'));return;}
+   const book=element(doc,'div','blog-book'),stage=element(doc,'div','blog-stage'),controls=element(doc,'div','blog-controls');
+   const previous=element(doc,'button','','\u2190'),next=element(doc,'button','','\u2192'),counter=element(doc,'span','blog-counter'),close=element(doc,'button','','\u21a4');
+   previous.type=next.type=close.type='button';previous.title='Previous page';next.title='Open book';close.title='Return to cover';
+   for(const button of [previous,next,close])button.setAttribute('aria-label',button.title);
+   counter.setAttribute('aria-live','polite');controls.append(previous,counter,next,close);book.append(stage,controls);root.append(book);
+   const leaves=[];
+   function leaf(hard=false){
+     const page=element(doc,'div','blog-leaf'+(hard?' blog-hardcover':''));
+     if(hard)page.setAttribute('data-density','hard');
+     const inner=element(doc,'div','blog-leaf-inner');page.append(inner);leaves.push(page);stage.append(page);return inner;
+   }
+   function photo(post){
+     const asset=(data.photoLibrary||[]).find(item=>item.id===post.photoId);
+     const image=element(doc,'img');image.src=asset?.src||'assets/auckland-curlers.jpg';image.alt=asset?.name||'Club curlers';image.draggable=false;return image;
+   }
+   const front=leaf(true);
+   front.append(element(doc,'div','blog-meta',data.clubName||'Club journal'),element(doc,'h3','',title),photo(items[0]),element(doc,'div','blog-edition',items[0].title),element(doc,'div','blog-folio','Latest edition / '+(items[0].date||'')));
+   items.forEach((post,index)=>{
+     const left=leaf();left.append(element(doc,'div','blog-meta',[post.date,post.author].filter(Boolean).join(' / ')),photo(post));
+     const heading=element(doc,'div','blog-reading');heading.tabIndex=0;heading.append(element(doc,'h3','',post.title));left.append(heading,element(doc,'div','blog-folio',String(index*2+1).padStart(2,'0')));
+     const right=leaf(),reading=element(doc,'div','blog-reading');reading.tabIndex=0;reading.setAttribute('aria-label',post.title);
+     for(const paragraph of post.body.split(/\n\s*\n/))reading.append(element(doc,'p','',paragraph));
+     // Keep text selection and scrolling independent of the page-drag gesture.
+     for(const region of [heading,reading])for(const name of ['mousedown','touchstart'])region.addEventListener(name,event=>event.stopPropagation(),{passive:true});
+     right.append(element(doc,'div','blog-meta',post.title),reading,element(doc,'div','blog-folio',String(index*2+2).padStart(2,'0')));
+   });
+   const back=leaf(true);back.append(element(doc,'div','blog-meta',data.clubName||''),element(doc,'h3','',title),element(doc,'div','blog-edition','Until next time.'),element(doc,'div','blog-folio',items.length+' posts'));
+   let current=0;
+   function sync(){
+     current=record.engine?.getCurrentPageIndex()||0;
+     const last=leaves.length-1;
+     counter.textContent=current===0?'Cover':current>=last?'Back cover':Math.min(items.length,Math.ceil(current/2))+' / '+items.length;
+     previous.disabled=current===0;close.disabled=current===0;next.disabled=current>=last;
+     next.title=current===0?'Open book':'Next page';next.setAttribute('aria-label',next.title);
+     stage.classList.toggle('is-open',current>0&&current<last);stage.classList.toggle('is-back',current>=last);
+     leaves.forEach((page,index)=>{const visible=index===current||(record.engine?.getOrientation()==='landscape'&&current>0&&current<last&&index===current+1);page.inert=!visible;page.setAttribute('aria-hidden',String(!visible));});
+   }
+   function turn(delta){
+     if(!record.engine||record.engine.getState()!=='read')return;
+     if((delta<0&&current===0)||(delta>0&&current>=leaves.length-1))return;
+     if(doc.defaultView.matchMedia('(prefers-reduced-motion: reduce)').matches){delta>0?record.engine.turnToNextPage():record.engine.turnToPrevPage();}
+     else delta>0?record.engine.flipNext('bottom'):record.engine.flipPrev('bottom');
+   }
+   previous.onclick=()=>turn(-1);next.onclick=()=>turn(1);close.onclick=()=>record.engine?.turnToPage(0);
+   book.addEventListener('keydown',event=>{if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();turn(event.key==='ArrowRight'?1:-1);}else if(event.key==='Home'){event.preventDefault();record.engine?.turnToPage(0);}});
+   function mount(){
+     if(bookInstances.get(doc)!==record||!doc.defaultView.St)return;
+     const engine=new doc.defaultView.St.PageFlip(stage,{width:420,height:570,size:'stretch',minWidth:260,maxWidth:420,minHeight:353,maxHeight:570,showCover:true,usePortrait:true,autoSize:true,drawShadow:true,maxShadowOpacity:.35,flippingTime:850,mobileScrollSupport:true,showPageCorners:true,clickEventForward:true});
+     record.engine=engine;engine.on('flip',sync);engine.on('changeOrientation',sync);engine.on('init',sync);engine.loadFromHTML(leaves);
+     record.resize=new doc.defaultView.ResizeObserver(()=>{if(root.getBoundingClientRect().width>0)engine.update();});record.resize.observe(root);sync();
+   }
+   if(doc.defaultView.St)mount();
+   else{
+     let script=doc.getElementById('bookEngine');
+     if(!script){script=doc.createElement('script');script.id='bookEngine';script.src=new URL('assets/page-flip.browser.js',location.href).href;doc.head.append(script);}
+     script.addEventListener('load',mount,{once:true});
+     script.addEventListener('error',()=>{counter.textContent='Book unavailable';previous.disabled=next.disabled=close.disabled=true;},{once:true});
+   }
+ };
+ const previousRender=render;render=function(){previousRender();window.installBlogBook(document);listPosts();photoOptions();};
+ document.addEventListener('websiteRestored',populate);
+ populate();render();window.refreshWebsitePreview();
+})();
+</script>
+<script>
+function createUndoHistory(initial){
+ const entries=[];let current=initial,lastGroup=null,lastTime=0;
+ return {
+   record(next,group,now){
+     if(next===current)return;
+     if(!group||group!==lastGroup||now-lastTime>1200)entries.push(current);
+     current=next;lastGroup=group;lastTime=now;
+     while(entries.length>30||(entries.length>1&&entries.reduce((size,item)=>size+item.length,0)>15000000))entries.shift();
+   },
+   peek(){return entries.at(-1);},
+   accept(){current=entries.pop();lastGroup=null;},
+   get size(){return entries.length;}
+ };
+}
+(() => {
+ const button=document.getElementById('undoWebsite');
+ button.title='Undo last change';button.setAttribute('aria-label','Undo last change');
+ const snapshot=()=>JSON.stringify({website:data,roundRobin:window.rrTest.getState()});
+ const history=createUndoHistory(snapshot());let group=null,restoring=false,queued=false;
+ function checkpoint(){if(restoring)return;history.record(snapshot(),group,Date.now());button.disabled=!history.size;}
+ window.queueUndoCheckpoint=()=>{if(restoring||queued)return;queued=true;queueMicrotask(()=>{queued=false;checkpoint();});};
+ document.addEventListener('input',event=>{group=event.target;window.queueUndoCheckpoint();},true);
+ document.addEventListener('click',()=>{group=null;window.queueUndoCheckpoint();},true);
+ document.addEventListener('change',()=>window.queueUndoCheckpoint(),true);
+ button.onclick=()=>{
+   checkpoint();const saved=history.peek();if(!saved)return;
+   const target=JSON.parse(saved),before=snapshot();clearTimeout(saveTimer);
+   try{
+     localStorage.setItem(STORAGE_KEY,JSON.stringify(target.website));
+     localStorage.setItem('club-round-robin-v1',JSON.stringify(target.roundRobin));
+   }catch(error){
+     const old=JSON.parse(before);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(old.website));localStorage.setItem('club-round-robin-v1',JSON.stringify(old.roundRobin));}catch{}
+     document.getElementById('saveStatus').textContent='Could not save Undo. No changes were undone.';return;
+   }
+   restoring=true;
+   try{
+     data=target.website;window.rrTest.restore(target.roundRobin);window.previewTextBusy=false;
+     if(!(data.photoLibrary||[]).some(photo=>photo.id===selectedPhoto))selectedPhoto=null;
+     populateEditor();render();document.dispatchEvent(new Event('websiteRestored'));window.refreshWebsitePreview();
+     history.accept();button.disabled=!history.size;document.getElementById('saveStatus').textContent='Last change undone and saved';
+   }finally{restoring=false;group=null;}
+ };
+})();
+</script>
+<style>
+.admin-section-header{display:flex;align-items:center;justify-content:space-between;gap:16px;min-width:0}
+.editor-section .admin-section-header h3{margin:0;font-size:18px;line-height:1.3;overflow-wrap:anywhere;min-width:0}
+.admin-section-toggle{flex-shrink:0;min-width:88px;min-height:38px;border:1px solid #b7c4cb;border-radius:4px;background:#f5f8f9;color:#163e52;padding:8px 12px;font:inherit;font-size:13px;font-weight:700}
+.admin-section-toggle:focus-visible{outline:3px solid #168276;outline-offset:3px}
+.admin-section-body{margin-top:20px;min-width:0}
+@media(max-width:420px){.admin-section-header{gap:10px}.admin-section-toggle{min-width:78px;padding:8px}.editor-section .admin-section-header h3{font-size:16px}}
+</style>
+<script>
+(() => {
+ const storageKey='club-admin-section-visibility-v1';
+ let expanded={};try{expanded=JSON.parse(sessionStorage.getItem(storageKey))||{};}catch{}
+ const sections=new Map();
+ function setExpanded(section,open){
+   const entry=sections.get(section);if(!entry)return;
+   entry.body.hidden=!open;entry.button.textContent=open?'Minimize':'Open';
+   entry.button.setAttribute('aria-expanded',String(open));
+   entry.button.setAttribute('aria-label',(open?'Minimize ':'Open ')+entry.title);
+   expanded[entry.key]=open;try{sessionStorage.setItem(storageKey,JSON.stringify(expanded));}catch{}
+ }
+ document.querySelectorAll('.editor > .editor-section').forEach((section,index)=>{
+   const heading=section.querySelector('h3');if(!heading)return;
+   const title=heading.textContent.trim(),key=section.id||title;
+   const header=document.createElement('div');header.className='admin-section-header';
+   const body=document.createElement('div');body.className='admin-section-body';body.id='admin-section-body-'+index;
+   const button=document.createElement('button');button.type='button';button.className='admin-section-toggle';button.setAttribute('aria-controls',body.id);
+   heading.remove();while(section.firstChild)body.append(section.firstChild);
+   header.append(heading,button);section.append(header,body);
+   sections.set(section,{body,button,title,key});
+   button.onclick=()=>setExpanded(section,body.hidden);
+   setExpanded(section,expanded[key]===true);
+ });
+ window.openAdminSection=section=>setExpanded(section,true);
 })();
 </script>
 </body>
