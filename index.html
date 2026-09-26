@@ -5,9 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Club Website — Live Editor</title>
+<!-- CLUB-CONTENT-START -->
+<script type="application/json" id="clubPublishedContent">null</script>
+<!-- CLUB-CONTENT-END -->
 <script>
-// Content lives separately from the template so code updates do not replace it.
-document.write('<script src="site-content.js?v='+Date.now()+'"><\/script>');
+window.CLUB_PUBLISHED_DATA=JSON.parse(document.getElementById('clubPublishedContent').textContent);
+// Continue supporting sites that already use the earlier separate content file.
+if(!window.CLUB_PUBLISHED_DATA)document.write('<script src="site-content.js?v='+Date.now()+'"><\/script>');
 </script>
 
 <style>
@@ -3529,6 +3533,13 @@ function makeSiteSnapshot(website,roundRobin,published=false){
  if(published){delete value.website.blogDraft;value.publishedAt=value.exportedAt;value.revision=crypto.randomUUID();}
  return value;
 }
+function buildPublishedHTML(source,snapshot){
+ const start='<!-- CLUB-CONTENT-START -->',end='<!-- CLUB-CONTENT-END -->';
+ const from=source.indexOf(start),to=source.indexOf(end,from);
+ if(from<0||to<0)throw new Error('Upload the latest editor update first, then refresh this page.');
+ const json=JSON.stringify(snapshot).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+ return source.slice(0,from)+start+'\n<script type="application/json" id="clubPublishedContent">'+json+'</scr'+'ipt>\n'+end+source.slice(to+end.length);
+}
 (() => {
  const panel=document.createElement('section');panel.className='editor-section';panel.id='sitePublishing';
  panel.innerHTML='<h3>Publishing and backups</h3><p id="publicationState" role="status"></p><div class="blog-admin-actions"><button type="button" class="editor-btn" id="exportPublishedContent">Export GitHub update</button><button type="button" class="editor-btn" id="downloadSiteBackup">Download backup</button><button type="button" class="editor-btn" id="restoreBrowserDraft">Restore saved browser edits</button></div><label class="field" style="margin-top:18px"><span>Import backup</span><input id="importSiteBackup" type="file" accept=".json,application/json"></label><a href="https://github.com/aucklandcurlwebsite-sudo/BusinessLeagueACC/upload/main" target="_blank" rel="noopener noreferrer">Upload update to GitHub</a><p id="publicationMessage" role="status"></p>';
@@ -3563,12 +3574,21 @@ function makeSiteSnapshot(website,roundRobin,published=false){
    }
  };
  $('downloadSiteBackup').onclick=()=>{download(snapshot(),'club-website-backup-'+new Date().toISOString().slice(0,10)+'.json');message.textContent='Backup downloaded with all photos, scores, posts and drafts.';};
- $('exportPublishedContent').onclick=()=>{
+ $('exportPublishedContent').textContent='Download website update';
+ $('exportPublishedContent').onclick=async()=>{
+   const button=$('exportPublishedContent');
    const value=makeSiteSnapshot(data,window.rrTest.getState(),true);
    if(!validSiteSnapshot(value)){message.textContent='Content could not be exported. Download a backup and check the editor values.';return;}
-   const code='/* Club website content. Keep this file when updating the template. */\nwindow.CLUB_PUBLISHED_DATA = JSON.parse('+JSON.stringify(JSON.stringify(value))+');\n';
-   download(code,'site-content.js','text/javascript');
-   message.textContent='Exported, not yet published. Upload site-content.js beside index.html on GitHub and commit the update. Visitors will then receive this version. Unpublished blog drafts stay in your backup.';
+   button.disabled=true;message.textContent='Preparing your website update...';
+   try{
+     if(!['https:','http:'].includes(location.protocol))throw new Error('Open your GitHub website in the browser where you edit it, then download the update there.');
+     const response=await fetch(location.href.split('#')[0],{cache:'no-store',signal:AbortSignal.timeout(15000)});
+     if(!response.ok)throw new Error('Could not load the website template. Please try again.');
+     const html=buildPublishedHTML(await response.text(),value);
+     download(html,'index.html','text/html');
+     message.textContent='Ready: upload the downloaded index.html to GitHub and commit. It includes your photos, posts, scores and settings. Nothing else needs uploading for this content update.';
+   }catch(error){message.textContent=error.message||'Could not prepare the update. Your edits are still here.';}
+   finally{button.disabled=false;}
  };
  $('restoreBrowserDraft').disabled=!recovery;
  $('restoreBrowserDraft').onclick=async()=>{if(!recovery||!confirm('Load this browser\'s saved edits? Your current version will be backed up first.'))return;try{await restore(recovery);message.textContent='Saved browser edits restored.';}catch(error){message.textContent=error.message;}};
