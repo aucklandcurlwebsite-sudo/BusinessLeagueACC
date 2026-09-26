@@ -1,0 +1,40 @@
+GITHUB PUBLISHING UPDATE
+
+Your existing edits are still stored in the browser where you made them.
+Do not clear that browser's site data. Opening a downloaded HTML file does
+not give it access to edits saved on your GitHub website.
+
+1. Extract github-publishing-update.zip.
+2. In https://github.com/aucklandcurlwebsite-sudo/BusinessLeagueACC
+   upload index.html and the assets folder from inside the extracted folder
+   into the repository root. Replace the matching files and commit changes.
+   Do not upload the ZIP itself or put index.html inside another folder.
+   Do not delete any existing site-content.js file or other repository files.
+3. Wait for the GitHub Pages deployment to finish successfully.
+4. Open https://aucklandcurlwebsite-sudo.github.io/BusinessLeagueACC/
+   in the SAME browser/profile where your edits are still saved. Refresh it.
+5. Log into Admin. Open Publishing and backups.
+6. Check your latest edits are visible. Download backup first and keep the
+   JSON file somewhere safe. If necessary, use Restore saved browser edits.
+7. Click Export GitHub update. This downloads site-content.js, including
+   your photos, published blog posts, text, colours, placements and scores.
+8. Upload site-content.js to the repository root beside index.html and
+   commit the update. Wait for the next deployment to finish.
+9. Check the shared link in a private/incognito window. It should now show
+   the exported content without needing your browser's saved data.
+
+FUTURE CHANGES
+Admin saves are local drafts, not automatic GitHub commits. After edits,
+export a new site-content.js and replace that file on GitHub. Template/code
+updates must retain site-content.js. This separates content from code.
+
+BACKUPS AND PRIVACY
+Download backup includes unpublished blog drafts. Keep it private; do not
+upload the backup JSON to the public repository. The publishing export omits
+blog drafts but includes the photo library, so uploaded library photos become
+public in the content file. Publish only photos you intend to share.
+Browser storage can be cleared or fail, so keep downloaded backups too.
+The existing password prompt is not secure server-side authentication.
+
+This update has passed offline syntax and publishing-data checks. Live
+deployment and browser verification must be completed after your upload.

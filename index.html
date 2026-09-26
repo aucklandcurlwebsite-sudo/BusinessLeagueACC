@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Club Website — Live Editor</title>
+<script>
+// Content lives separately from the template so code updates do not replace it.
+document.write('<script src="site-content.js?v='+Date.now()+'"><\/script>');
+</script>
 
 <style>
 :root{
@@ -1731,7 +1735,9 @@ function loadData(){
   try{
 
     const stored =
-      localStorage.getItem(STORAGE_KEY);
+      window.CLUB_PUBLISHED_DATA?.website
+        ? JSON.stringify(window.CLUB_PUBLISHED_DATA.website)
+        : localStorage.getItem(STORAGE_KEY);
 
     if(!stored)
       return structuredClone(defaults);
@@ -1794,7 +1800,7 @@ function autoSave(){
         document.getElementById(
           "saveStatus"
         ).textContent =
-          "✓ All changes saved";
+          "Saved in this browser (not published)";
 
       }catch(error){
 
@@ -2159,7 +2165,7 @@ function persistPhotos(){
   clearTimeout(saveTimer);
   try{
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    saveStatus.textContent = "All changes saved";
+    saveStatus.textContent = "Saved in this browser (not published)";
     return true;
   }catch(error){
     saveStatus.textContent = "Could not save photos: browser storage is full or unavailable.";
@@ -2528,7 +2534,7 @@ updateInteraction();
  const key='club-round-robin-v1';
  let state={title:'Club Round Robin',teams:[1,2,3,4].map(n=>({id:String(n),name:'Team '+n})),rounds:[]};
  let storageError=false;
- try{const saved=JSON.parse(localStorage.getItem(key));if(saved&&Array.isArray(saved.teams)&&Array.isArray(saved.rounds)&&typeof saved.title==='string')state=saved;}catch{storageError=true;}
+ try{const saved=window.CLUB_PUBLISHED_DATA?.roundRobin||JSON.parse(localStorage.getItem(key));if(saved&&Array.isArray(saved.teams)&&Array.isArray(saved.rounds)&&typeof saved.title==='string')state=structuredClone(saved);}catch{storageError=true;}
  const $=id=>document.getElementById(id);
  const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const name=id=>state.teams.find(t=>t.id===id)?.name||'Bye';
@@ -3037,6 +3043,7 @@ updateInteraction();
      if(!dialog.open)return;
      if(actual!==expected){error.textContent='Incorrect password. Please try again.';password.value='';password.focus();return;}
      dialog.close();
+     await window.enterEditorDraft?.();
      document.getElementById('admin').hidden=false;
      document.body.style.overflow='hidden';
      document.getElementById('closeAdmin').focus();
@@ -3501,6 +3508,73 @@ function createUndoHistory(initial){
      populateEditor();render();document.dispatchEvent(new Event('websiteRestored'));window.refreshWebsitePreview();
      history.accept();button.disabled=!history.size;document.getElementById('saveStatus').textContent='Last change undone and saved';
    }finally{restoring=false;group=null;}
+ };
+})();
+</script>
+<script>
+function validSiteSnapshot(value){
+ if(!value||value.format!=='club-website-content'||value.version!==1)return false;
+ const site=value.website,round=value.roundRobin;
+ if(!site||typeof site!=='object'||Array.isArray(site)||typeof site.clubName!=='string'||!site.hero||!site.about||!site.gallery||!site.colours)return false;
+ if(!Array.isArray(site.photos)||site.photos.some(photo=>typeof photo!=='string'))return false;
+ if(site.photoLibrary&&(!Array.isArray(site.photoLibrary)||site.photoLibrary.some(photo=>!photo||typeof photo.id!=='string'||typeof photo.src!=='string')))return false;
+ if(site.blogPosts&&(!Array.isArray(site.blogPosts)||site.blogPosts.some(post=>!post||typeof post.id!=='string'||typeof post.title!=='string'||typeof post.body!=='string')))return false;
+ if(!round||typeof round.title!=='string'||!Array.isArray(round.teams)||!Array.isArray(round.rounds))return false;
+ if(round.teams.some(team=>!team||typeof team.id!=='string'||typeof team.name!=='string'))return false;
+ const ids=new Set(round.teams.map(team=>team.id));if(ids.size!==round.teams.length)return false;
+ return round.rounds.every(matches=>Array.isArray(matches)&&matches.every(match=>match&&[match.a,match.b].every(id=>id===null||ids.has(id))&&[match.sa,match.sb].every(score=>score===null||(Number.isInteger(score)&&score>=0))));
+}
+function makeSiteSnapshot(website,roundRobin,published=false){
+ const value={format:'club-website-content',version:1,exportedAt:new Date().toISOString(),website:structuredClone(website),roundRobin:structuredClone(roundRobin)};
+ if(published){delete value.website.blogDraft;value.publishedAt=value.exportedAt;value.revision=crypto.randomUUID();}
+ return value;
+}
+(() => {
+ const panel=document.createElement('section');panel.className='editor-section';panel.id='sitePublishing';
+ panel.innerHTML='<h3>Publishing and backups</h3><p id="publicationState" role="status"></p><div class="blog-admin-actions"><button type="button" class="editor-btn" id="exportPublishedContent">Export GitHub update</button><button type="button" class="editor-btn" id="downloadSiteBackup">Download backup</button><button type="button" class="editor-btn" id="restoreBrowserDraft">Restore saved browser edits</button></div><label class="field" style="margin-top:18px"><span>Import backup</span><input id="importSiteBackup" type="file" accept=".json,application/json"></label><a href="https://github.com/aucklandcurlwebsite-sudo/BusinessLeagueACC/upload/main" target="_blank" rel="noopener noreferrer">Upload update to GitHub</a><p id="publicationMessage" role="status"></p>';
+ document.querySelector('.editor').prepend(panel);
+ const $=id=>document.getElementById(id),message=$('publicationMessage');
+ $('publicationState').textContent=window.CLUB_PUBLISHED_DATA?.publishedAt?'Published content: '+new Date(window.CLUB_PUBLISHED_DATA.publishedAt).toLocaleString():'No shared content file has been published yet.';
+ const snapshot=()=>makeSiteSnapshot(data,window.rrTest.getState());
+ let recovery=null;
+ try{const site=JSON.parse(localStorage.getItem(STORAGE_KEY)),round=JSON.parse(localStorage.getItem('club-round-robin-v1'))||window.rrTest.getState();if(site){const candidate=makeSiteSnapshot(site,round);if(validSiteSnapshot(candidate))recovery=candidate;}}catch{}
+ function download(value,name,type='application/json'){
+   const blob=new Blob([typeof value==='string'?value:JSON.stringify(value,null,2)],{type});const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+ }
+ function storeBackup(id,value){
+   return new Promise(resolve=>{
+     try{const request=indexedDB.open('clubWebsiteRecoveryV1',1);request.onupgradeneeded=()=>request.result.createObjectStore('snapshots');request.onerror=()=>resolve(false);request.onblocked=()=>resolve(false);request.onsuccess=()=>{const db=request.result;try{const tx=db.transaction('snapshots','readwrite');tx.objectStore('snapshots').put(value,id);tx.oncomplete=()=>{db.close();resolve(true);};tx.onerror=tx.onabort=()=>{db.close();resolve(false);};}catch{db.close();resolve(false);}};}catch{resolve(false);}
+   });
+ }
+ // Keep the pre-update local draft independently of the published visitor version.
+ const recoverySaved=recovery?storeBackup('beforeTemplateUpdate',recovery):Promise.resolve(true);
+ async function restore(value){
+   if(!validSiteSnapshot(value))throw new Error('This is not a valid club website backup.');
+   const previous=snapshot();if(!await storeBackup('beforeImport',previous))download(previous,'club-website-before-import.json');
+   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(value.website));localStorage.setItem('club-round-robin-v1',JSON.stringify(value.roundRobin));}
+   catch(error){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(previous.website));localStorage.setItem('club-round-robin-v1',JSON.stringify(previous.roundRobin));}catch{}throw new Error('Browser storage is full. Your current view has not been replaced. Keep your backup file.');}
+   clearTimeout(saveTimer);data={...structuredClone(defaults),...structuredClone(value.website)};window.rrTest.restore(value.roundRobin);
+   window.previewTextBusy=false;selectedPhoto=null;populateEditor();render();document.dispatchEvent(new Event('websiteRestored'));window.refreshWebsitePreview();window.queueUndoCheckpoint?.();
+ }
+ window.enterEditorDraft=async()=>{
+   if(recovery&&!await recoverySaved)download(recovery,'club-website-recovered-backup.json');
+   if(recovery&&window.CLUB_PUBLISHED_DATA&&(JSON.stringify(recovery.website)!==JSON.stringify(data)||JSON.stringify(recovery.roundRobin)!==JSON.stringify(window.rrTest.getState()))&&confirm('This browser has saved edits that differ from the published website. Load those saved edits into Admin? Cancel keeps the published version; your saved edits remain available under Publishing and backups.')){
+     try{await restore(recovery);message.textContent='Your saved browser edits are loaded. They are not published until the GitHub update is uploaded.';}catch(error){message.textContent=error.message;}
+   }
+ };
+ $('downloadSiteBackup').onclick=()=>{download(snapshot(),'club-website-backup-'+new Date().toISOString().slice(0,10)+'.json');message.textContent='Backup downloaded with all photos, scores, posts and drafts.';};
+ $('exportPublishedContent').onclick=()=>{
+   const value=makeSiteSnapshot(data,window.rrTest.getState(),true);
+   if(!validSiteSnapshot(value)){message.textContent='Content could not be exported. Download a backup and check the editor values.';return;}
+   const code='/* Club website content. Keep this file when updating the template. */\nwindow.CLUB_PUBLISHED_DATA = JSON.parse('+JSON.stringify(JSON.stringify(value))+');\n';
+   download(code,'site-content.js','text/javascript');
+   message.textContent='Exported, not yet published. Upload site-content.js beside index.html on GitHub and commit the update. Visitors will then receive this version. Unpublished blog drafts stay in your backup.';
+ };
+ $('restoreBrowserDraft').disabled=!recovery;
+ $('restoreBrowserDraft').onclick=async()=>{if(!recovery||!confirm('Load this browser\'s saved edits? Your current version will be backed up first.'))return;try{await restore(recovery);message.textContent='Saved browser edits restored.';}catch(error){message.textContent=error.message;}};
+ $('importSiteBackup').onchange=async event=>{
+   const input=event.target,file=input.files[0];if(!file)return;
+   try{const value=JSON.parse(await file.text());if(!validSiteSnapshot(value))throw new Error('Choose a valid club website JSON backup.');if(!confirm('Import this backup? Your current version will be backed up first.'))return;await restore(value);message.textContent='Backup restored in this browser. Export a GitHub update to share it.';}catch(error){message.textContent=error.message;}finally{input.value='';}
  };
 })();
 </script>
